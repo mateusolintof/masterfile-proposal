@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/react": "beta",
+    "@heroui/react": "^2.8.6",
     "@heroui/theme": "beta",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",

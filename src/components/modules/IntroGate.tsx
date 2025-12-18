@@ -36,7 +36,8 @@ export default function IntroGate() {
                         >
                             <Button
                                 size="lg"
-                                variant="primary"
+                                color="primary"
+                                variant="solid"
                                 onPress={completeIntro}
                                 className="bg-white text-black font-semibold tracking-wide px-12 py-8 text-lg rounded-none border border-white/20 hover:bg-white/90"
                             >

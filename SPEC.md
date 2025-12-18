@@ -49,22 +49,22 @@ Selecionada para alta performance visual (WebGL) e produtividade de UI (HeroUI).
     "react": "19.2.3",
     "react-dom": "19.2.3",
     
-    "@heroui/react": "3.0.0",    // VITAL: Componentes prontos (Sliders, Modais, Cards)
-    "@heroui/theme": "3.0.0",
+    "@heroui/react": "^2.8.6",   // DOWNGRADED: Estabilidade garantida (v3 instável)
+    "@heroui/theme": "^2.8.6",
     
     "framer-motion": "^12.0.0",   // Animações de UI e Transições de texto
     "gsap": "^3.13.2",            // Orquestração da Timeline Horizontal
     
     "@react-three/fiber": "^9.0.0", // Core 3D
     "@react-three/drei": "^10.0.0", // Helpers (Image, ScrollControls)
-    "three": "^0.183.0",          // WebGL Engine
+    "three": "^0.182.0",          // WebGL Engine/
     
     "recharts": "^2.15.0",        // Gráficos de ROI profissionais
     "zustand": "^5.0.0",          // Gerenciamento de Estado (Slide Ativo, Inputs ROI)
     
-    "lucide-react": "^0.585.0",
-    "tailwind-variants": "^0.4.0",
-    "clsx": "^2.2.0",
+    "lucide-react": "^0.562.0",
+    "tailwind-variants": "^3.2.2",
+    "clsx": "^2.1.1",
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
