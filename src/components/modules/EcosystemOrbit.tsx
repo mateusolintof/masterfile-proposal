@@ -13,6 +13,14 @@ import {
 } from "@heroui/react";
 import { useState } from "react";
 
+// Pre-calculated positions to avoid hydration mismatch
+// radius = 180, 3 agents at 0°, 120°, 240°
+const AGENT_POSITIONS = [
+    { top: "calc(50% + 0px - 32px)", left: "calc(50% + 180px - 32px)" },      // 0° (right)
+    { top: "calc(50% + 156px - 32px)", left: "calc(50% - 90px - 32px)" },     // 120° (bottom-left)
+    { top: "calc(50% - 156px - 32px)", left: "calc(50% - 90px - 32px)" },     // 240° (top-left)
+];
+
 const agents = [
     {
         id: "sdr",
@@ -80,33 +88,24 @@ export default function EcosystemOrbit() {
                 <div className="absolute inset-16 border border-dashed border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
 
                 {/* Agents */}
-                {agents.map((agent, index) => {
-                    const angle = (index / agents.length) * 2 * Math.PI;
-                    // Positioning on a circle
-                    const radius = 180;
-
-                    return (
-                        <motion.button
-                            key={agent.id}
-                            className="absolute w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-[#00E5FF] hover:scale-110 transition-all flex items-center justify-center backdrop-blur-md group"
-                            style={{
-                                top: `calc(50% + ${Math.sin(angle) * radius}px - 32px)`,
-                                left: `calc(50% + ${Math.cos(angle) * radius}px - 32px)`,
-                            }}
-                            initial={{ opacity: 0, scale: 0 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 + index * 0.1 }}
-                            onClick={() => handleAgentClick(agent)}
-                        >
-                            <div className="text-white/80 group-hover:text-[#00E5FF] transition-colors">
-                                {agent.icon}
-                            </div>
-                            <span className="absolute -bottom-8 text-xs font-medium text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                                {agent.name}
-                            </span>
-                        </motion.button>
-                    )
-                })}
+                {agents.map((agent, index) => (
+                    <motion.button
+                        key={agent.id}
+                        className="absolute w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-[#00E5FF] hover:scale-110 transition-all flex items-center justify-center backdrop-blur-md group"
+                        style={AGENT_POSITIONS[index]}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 + index * 0.1 }}
+                        onClick={() => handleAgentClick(agent)}
+                    >
+                        <div className="text-white/80 group-hover:text-[#00E5FF] transition-colors">
+                            {agent.icon}
+                        </div>
+                        <span className="absolute -bottom-8 text-xs font-medium text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                            {agent.name}
+                        </span>
+                    </motion.button>
+                ))}
             </div>
 
             {/* Modal Detail */}

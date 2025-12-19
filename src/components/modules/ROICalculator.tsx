@@ -52,7 +52,7 @@ export default function ROICalculator() {
                             <div className="space-y-8">
                                 <div>
                                     <label className="text-sm text-white/60 mb-2 block">Leads Mensais</label>
-                                    <div className="text-2xl font-bold text-white mb-2">{leads.toLocaleString()}</div>
+                                    <div className="text-2xl font-bold text-white mb-2">{leads.toLocaleString('pt-BR')}</div>
                                     <Slider
                                         step={100}
                                         minValue={500}
@@ -65,7 +65,7 @@ export default function ROICalculator() {
                                 </div>
                                 <div>
                                     <label className="text-sm text-white/60 mb-2 block">Ticket Médio</label>
-                                    <div className="text-2xl font-bold text-white mb-2">R$ {ticket.toLocaleString()}</div>
+                                    <div className="text-2xl font-bold text-white mb-2">R$ {ticket.toLocaleString('pt-BR')}</div>
                                     <Slider
                                         size="sm"
                                         step={50}
