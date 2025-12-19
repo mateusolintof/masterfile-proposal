@@ -1,35 +1,69 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo } from "react";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { Slider, Card, CardBody, Tab, Tabs, Chip } from "@heroui/react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from "recharts";
 import { Users, Bot, DollarSign } from "lucide-react";
+import { useProposalStore } from "@/store/useProposalStore";
 
 export default function ROICalculator() {
-    const [leads, setLeads] = useState(1000);
-    const [ticket, setTicket] = useState(500); // Standardize Ticket state if needed, unused in previous View but useful.
+    const leads = useProposalStore((state) => state.leadsPerMonth);
+    const setLeads = useProposalStore((state) => state.setLeadsPerMonth);
+    const ticket = useProposalStore((state) => state.avgTicket);
+    const setTicket = useProposalStore((state) => state.setAvgTicket);
+    const upliftFactor = useProposalStore((state) => state.upliftFactor);
+    const setUpliftFactor = useProposalStore((state) => state.setUpliftFactor);
+    const setupCost = useProposalStore((state) => state.setupCost);
+    const monthlyOpex = useProposalStore((state) => state.monthlyOpex);
 
-    // Constants
-    const conversionRate = 0.05; // 5%
-    // const ticket = 500; // Use state if we want to make it interactive later, but sticking to logic.
-    // Actually, looking at previous code, ticket was hardcoded 500 in display but variable 'ticket' defined.
-    // I will use state for ticket to make it better.
+    const conversionRate = 0.078;
+    const delayLossRate = 0.45;
 
-    // Calculations
-    const leadsLostByDelay = leads * 0.60; // 60% lost due to delay
+    const leadsLostByDelay = leads * delayLossRate;
     const revenueCurrent = (leads - leadsLostByDelay) * conversionRate * ticket;
-    const revenueAI = leads * (conversionRate * 1.5) * ticket; // +50% conversion efficiency
+    const revenueAI = leads * conversionRate * upliftFactor * ticket;
+    const monthlyGain = revenueAI - revenueCurrent - monthlyOpex;
+    const paybackIsValid = monthlyGain > 0;
+    const paybackMonths = paybackIsValid ? setupCost / monthlyGain : 0;
+
+    const revenueMotion = useMotionValue(revenueAI);
+    const savingsMotion = useMotionValue(monthlyGain * 12);
+    const paybackMotion = useMotionValue(paybackMonths);
+
+    const formatCurrency = useMemo(
+        () =>
+            new Intl.NumberFormat("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }),
+        []
+    );
+
+    const revenueDisplay = useTransform(revenueMotion, (value) => formatCurrency.format(value));
+    const savingsDisplay = useTransform(savingsMotion, (value) => formatCurrency.format(value));
+    const paybackDisplay = useTransform(paybackMotion, (value) => (
+        paybackIsValid ? value.toFixed(1) : "n/a"
+    ));
+
+    useEffect(() => {
+        const revenueControls = animate(revenueMotion, revenueAI, { duration: 0.6, ease: "easeOut" });
+        const savingsControls = animate(savingsMotion, monthlyGain * 12, { duration: 0.6, ease: "easeOut" });
+        const paybackControls = animate(paybackMotion, paybackMonths, { duration: 0.6, ease: "easeOut" });
+        return () => {
+            revenueControls.stop();
+            savingsControls.stop();
+            paybackControls.stop();
+        };
+    }, [revenueAI, monthlyGain, paybackMonths, revenueMotion, savingsMotion, paybackMotion]);
 
     const chartData = [
         { name: "Atual", revenue: revenueCurrent },
         { name: "Com IA", revenue: revenueAI },
     ];
 
-    // Economy Tab - Annual savings calculation
-    const humanCostMonthly = 7500; // 3 SDRs
-    const aiCostMonthly = 1500;    // AI Squad
-    const savings = (humanCostMonthly - aiCostMonthly) * 12;
+    const humanCostMonthly = 7500;
+    const aiCostMonthly = monthlyOpex;
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
@@ -43,7 +77,7 @@ export default function ROICalculator() {
                 <h2 className="text-4xl font-bold text-white">Matemática do Lucro</h2>
             </motion.div>
 
-            <div className="w-full max-w-4xl h-[550px] flex gap-8">
+            <div className="w-full max-w-5xl h-[560px] flex gap-8">
                 {/* Control Panel */}
                 <Card className="w-1/3 h-full bg-black/40 border border-white/10 backdrop-blur-md">
                     <CardBody className="p-8 flex flex-col justify-between h-full">
@@ -77,7 +111,26 @@ export default function ROICalculator() {
                                         color="success"
                                     />
                                 </div>
+                                <div>
+                                    <label className="text-sm text-white/60 mb-2 block">Ganho de Conversao</label>
+                                    <div className="text-2xl font-bold text-white mb-2">{(upliftFactor * 100 - 100).toFixed(0)}%</div>
+                                    <Slider
+                                        size="sm"
+                                        step={0.05}
+                                        minValue={1.1}
+                                        maxValue={1.7}
+                                        value={upliftFactor}
+                                        onChange={(v) => setUpliftFactor(Number(v))}
+                                        aria-label="Ganho de Conversao"
+                                        color="success"
+                                    />
+                                </div>
                             </div>
+                        </div>
+                        <div className="mt-8 text-xs text-white/50 space-y-2">
+                            <div>Formula: Leads x Conversao x Ticket</div>
+                            <div>Perda por atraso: {(delayLossRate * 100).toFixed(0)}%</div>
+                            <div>Conversao base: {(conversionRate * 100).toFixed(1)}%</div>
                         </div>
                     </CardBody>
                 </Card>
@@ -118,7 +171,7 @@ export default function ROICalculator() {
                                     <div className="mt-4 text-center">
                                         <span className="text-white/40 text-sm">Receita Projetada (Mensal)</span>
                                         <div className="text-4xl font-bold" style={{ color: 'var(--color-accent-success)' }}>
-                                            R$ {revenueAI.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                            R$ <motion.span>{revenueDisplay}</motion.span>
                                         </div>
                                     </div>
                                 </div>
@@ -149,9 +202,30 @@ export default function ROICalculator() {
                                         <p className="text-white/60 mb-2 uppercase tracking-widest text-xs">Economia Anual Projetada</p>
                                         <div className="text-5xl font-bold flex items-center justify-center gap-2" style={{ color: 'var(--color-accent-success)' }}>
                                             <DollarSign size={32} />
-                                            {savings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                                            <motion.span>{savingsDisplay}</motion.span>
                                         </div>
                                     </div>
+                                </div>
+                            </Tab>
+                            <Tab key="payback" title="Payback">
+                                <div className="p-8 h-full flex flex-col items-center justify-center gap-6 text-center">
+                                    <p className="text-white/60 text-sm uppercase tracking-widest">Tempo de retorno</p>
+                                    <div className="text-6xl font-bold" style={{ color: 'var(--color-accent-success)' }}>
+                                        <motion.span>{paybackDisplay}</motion.span> meses
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                            <p className="text-xs uppercase tracking-widest text-white/40">Setup</p>
+                                            <p className="text-white/80 text-lg mt-2">R$ {setupCost.toLocaleString("pt-BR")}</p>
+                                        </div>
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                            <p className="text-xs uppercase tracking-widest text-white/40">Opex Mensal</p>
+                                            <p className="text-white/80 text-lg mt-2">R$ {monthlyOpex.toLocaleString("pt-BR")}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-white/50 text-sm">
+                                        Baseado no ganho mensal projetado menos o Opex recorrente.
+                                    </p>
                                 </div>
                             </Tab>
                         </Tabs>
