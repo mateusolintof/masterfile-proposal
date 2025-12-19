@@ -49,3 +49,39 @@ body {
   backdrop-filter: blur(32px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.08), transparent 35%);
+  background-size: 120px 120px, 120px 120px, 100% 100%;
+  background-position: center;
+}
+
+.scanline {
+  position: absolute;
+  inset: 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.18), transparent);
+  filter: blur(6px);
+  animation: scanline 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-40%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(140%);
+    opacity: 0;
+  }
+}

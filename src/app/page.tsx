@@ -4,10 +4,8 @@ import dynamic from "next/dynamic";
 import { useRef, useEffect, useCallback } from "react";
 import { motion, useScroll } from "framer-motion";
 import IntroGate from "@/components/modules/IntroGate";
-import CoverSummary from "@/components/modules/CoverSummary";
 import PainPointsGrid from "@/components/modules/PainPointsGrid";
 import EcosystemOrbit from "@/components/modules/EcosystemOrbit";
-import AIWorkflow from "@/components/modules/AIWorkflow";
 import DashboardPreview from "@/components/modules/DashboardPreview";
 import BeforeAfterSlider from "@/components/modules/BeforeAfterSlider";
 import ROICalculator from "@/components/modules/ROICalculator";
@@ -33,11 +31,9 @@ export default function Home() {
   const activeSlide = useProposalStore((state) => state.activeSlide);
 
   const slides = [
-    { id: "cover", label: "Resumo", element: <CoverSummary /> },
     { id: "diagnosis", label: "Diagnostico", element: <PainPointsGrid /> },
     { id: "opportunity", label: "Oportunidade", element: <BeforeAfterSlider /> },
     { id: "solution", label: "Solucao", element: <EcosystemOrbit /> },
-    { id: "workflow", label: "Workflow", element: <AIWorkflow /> },
     { id: "dashboard", label: "Dashboard", element: <DashboardPreview /> },
     { id: "demo", label: "Live Demo", element: <LiveCRM /> },
     { id: "roi", label: "ROI", element: <ROICalculator /> },

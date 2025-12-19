@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageSquare, Users, LineChart, BrainCircuit } from "lucide-react";
 import {
@@ -11,7 +12,18 @@ import {
     Button,
     Chip
 } from "@heroui/react";
-import { useState } from "react";
+import {
+    Background,
+    BackgroundVariant,
+    Controls,
+    MiniMap,
+    ReactFlow,
+    useEdgesState,
+    useNodesState,
+    type Edge,
+    type Node,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 
 // Pre-calculated positions to avoid hydration mismatch
 // radius = 180, 3 agents at 0°, 120°, 240°
@@ -66,14 +78,82 @@ const workflowNotes = [
     }
 ];
 
+const baseNodeStyle = {
+    background: "rgba(2, 4, 10, 0.8)",
+    color: "#EDEDED",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    borderRadius: 10,
+    padding: 8,
+    fontSize: 11,
+};
+
+const agentFlows: Record<string, { nodes: Node[]; edges: Edge[] }> = {
+    sdr: {
+        nodes: [
+            { id: "lead", type: "input", position: { x: 0, y: 40 }, data: { label: "Lead inbound" }, style: baseNodeStyle },
+            { id: "triage", position: { x: 180, y: 40 }, data: { label: "Qualificacao IA" }, style: baseNodeStyle },
+            { id: "agenda", position: { x: 360, y: 0 }, data: { label: "Agenda" }, style: baseNodeStyle },
+            { id: "crm", position: { x: 360, y: 90 }, data: { label: "CRM atualizado" }, style: baseNodeStyle },
+            { id: "handoff", position: { x: 180, y: 120 }, data: { label: "Escala humano" }, style: baseNodeStyle },
+        ],
+        edges: [
+            { id: "e1", source: "lead", target: "triage", animated: true, style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "e2", source: "triage", target: "agenda", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "e3", source: "triage", target: "crm", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "e4", source: "triage", target: "handoff", animated: true, style: { stroke: "rgba(255, 255, 255, 0.4)" } },
+        ],
+    },
+    closer: {
+        nodes: [
+            { id: "qualified", type: "input", position: { x: 0, y: 40 }, data: { label: "Lead qualificado" }, style: baseNodeStyle },
+            { id: "followup", position: { x: 180, y: 20 }, data: { label: "Follow-up" }, style: baseNodeStyle },
+            { id: "proposal", position: { x: 360, y: 0 }, data: { label: "Proposta" }, style: baseNodeStyle },
+            { id: "closing", position: { x: 360, y: 90 }, data: { label: "Fechamento" }, style: baseNodeStyle },
+            { id: "crm", position: { x: 540, y: 45 }, data: { label: "CRM + Financeiro" }, style: baseNodeStyle },
+        ],
+        edges: [
+            { id: "c1", source: "qualified", target: "followup", animated: true, style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "c2", source: "followup", target: "proposal", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "c3", source: "followup", target: "closing", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "c4", source: "proposal", target: "crm", style: { stroke: "rgba(0, 229, 255, 0.5)" } },
+            { id: "c5", source: "closing", target: "crm", style: { stroke: "rgba(0, 229, 255, 0.5)" } },
+        ],
+    },
+    analyst: {
+        nodes: [
+            { id: "logs", type: "input", position: { x: 0, y: 40 }, data: { label: "Transcricoes" }, style: baseNodeStyle },
+            { id: "sentiment", position: { x: 180, y: 20 }, data: { label: "Sentimento" }, style: baseNodeStyle },
+            { id: "insights", position: { x: 360, y: 0 }, data: { label: "Insights IA" }, style: baseNodeStyle },
+            { id: "dash", position: { x: 360, y: 90 }, data: { label: "Dashboard" }, style: baseNodeStyle },
+            { id: "alerts", position: { x: 540, y: 45 }, data: { label: "Alertas & Reports" }, style: baseNodeStyle },
+        ],
+        edges: [
+            { id: "a1", source: "logs", target: "sentiment", animated: true, style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "a2", source: "sentiment", target: "insights", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "a3", source: "sentiment", target: "dash", style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "a4", source: "insights", target: "alerts", style: { stroke: "rgba(0, 229, 255, 0.5)" } },
+            { id: "a5", source: "dash", target: "alerts", style: { stroke: "rgba(0, 229, 255, 0.5)" } },
+        ],
+    },
+};
+
 export default function EcosystemOrbit() {
     const [selectedAgent, setSelectedAgent] = useState(agents[0]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
+    const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
     const handleAgentClick = (agent: typeof agents[0]) => {
         setSelectedAgent(agent);
         setIsModalOpen(true);
     };
+
+    useEffect(() => {
+        const flow = agentFlows[selectedAgent.id];
+        if (!flow) return;
+        setNodes(flow.nodes);
+        setEdges(flow.edges);
+    }, [selectedAgent, setNodes, setEdges]);
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative overflow-hidden">
@@ -156,16 +236,48 @@ export default function EcosystemOrbit() {
                                 </div>
                             </ModalHeader>
                             <ModalBody className="py-6">
-                                <p className="text-white/80 leading-relaxed mb-4">
-                                    {selectedAgent.desc}
-                                </p>
-                                <div className="space-y-2">
-                                    {selectedAgent.stats.map((stat, i) => (
-                                        <div key={i} className="flex items-center gap-2 text-sm text-white/60">
-                                            <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-accent-tech)' }} />
-                                            {stat}
+                                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-6">
+                                    <div>
+                                        <p className="text-white/80 leading-relaxed mb-4">
+                                            {selectedAgent.desc}
+                                        </p>
+                                        <div className="space-y-2">
+                                            {selectedAgent.stats.map((stat, i) => (
+                                                <div key={i} className="flex items-center gap-2 text-sm text-white/60">
+                                                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-accent-tech)' }} />
+                                                    {stat}
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
+                                    </div>
+                                    <div className="bg-black/40 border border-white/10 rounded-xl p-3">
+                                        <p className="text-xs uppercase tracking-widest text-white/40 mb-2">
+                                            Fluxo do agente
+                                        </p>
+                                        <div className="h-[220px] w-full">
+                                            <ReactFlow
+                                                nodes={nodes}
+                                                edges={edges}
+                                                onNodesChange={onNodesChange}
+                                                onEdgesChange={onEdgesChange}
+                                                fitView
+                                                fitViewOptions={{ padding: 0.2 }}
+                                                nodesDraggable
+                                                nodesConnectable={false}
+                                                panOnDrag
+                                                zoomOnScroll={false}
+                                                proOptions={{ hideAttribution: true }}
+                                                className="bg-[#0b0f16] rounded-lg"
+                                            >
+                                                <Background variant={BackgroundVariant.Dots} gap={18} size={1} color="rgba(255,255,255,0.12)" />
+                                                <MiniMap zoomable={false} pannable={false} maskColor="rgba(2,4,10,0.7)" />
+                                                <Controls showInteractive={false} />
+                                            </ReactFlow>
+                                        </div>
+                                        <p className="text-[11px] text-white/50 mt-2">
+                                            Arraste os nodes para explorar o fluxo.
+                                        </p>
+                                    </div>
                                 </div>
                             </ModalBody>
                             <ModalFooter>

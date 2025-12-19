@@ -27,9 +27,13 @@ export default function IntroGate() {
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, scale: 1.05, filter: "blur(20px)" }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-[#02040A] text-white px-8 md:px-16"
+                    className="fixed inset-0 z-50 flex items-center justify-center text-white px-8 md:px-16 overflow-hidden"
                 >
-                    <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#050c12] via-[#02040A] to-[#050505]" />
+                    <div className="absolute inset-0 tech-grid opacity-40" />
+                    <div className="scanline" />
+
+                    <div className="relative z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         {/* Left Column - Text Content */}
                         <motion.div
                             initial={{ x: -50, opacity: 0 }}
@@ -41,9 +45,9 @@ export default function IntroGate() {
                             <div
                                 className="inline-block px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase"
                                 style={{
-                                    border: "1px solid #00FF94",
-                                    background: "rgba(0, 255, 148, 0.1)",
-                                    color: "#00FF94",
+                                    border: "1px solid rgba(0, 229, 255, 0.5)",
+                                    background: "rgba(0, 229, 255, 0.08)",
+                                    color: "#00E5FF",
                                 }}
                             >
                                 Plano de Expansao Comercial
@@ -55,7 +59,7 @@ export default function IntroGate() {
                             </h1>
 
                             {/* Description */}
-                            <p className="text-white/60 text-lg leading-relaxed">
+                            <p className="text-white/70 text-lg leading-relaxed">
                                 Transforme 35.000 interacoes mensais em resultados.
                                 Uma solucao integrada que combina IA conversacional
                                 com gestao de relacionamento para maximizar conversoes.
@@ -83,8 +87,8 @@ export default function IntroGate() {
                             <Card
                                 className="border border-white/10"
                                 style={{
-                                    background: "rgba(255, 255, 255, 0.05)",
-                                    backdropFilter: "blur(24px)",
+                                    background: "rgba(6, 14, 20, 0.7)",
+                                    backdropFilter: "blur(18px)",
                                 }}
                             >
                                 <CardBody className="p-8 space-y-6">
@@ -122,11 +126,8 @@ export default function IntroGate() {
                                         <Button
                                             size="lg"
                                             onPress={completeIntro}
-                                            className="w-full font-semibold tracking-wide h-14 text-lg"
-                                            style={{
-                                                background: "#00FF94",
-                                                color: "#02040A",
-                                            }}
+                                            className="w-full font-semibold tracking-wide h-14 text-lg border border-[#00E5FF]/40 bg-[#0a1b24] text-[#E6FBFF] hover:bg-[#0f2532]"
+                                            style={{ boxShadow: "0 0 24px rgba(0, 229, 255, 0.25)" }}
                                             endContent={<ArrowRight size={20} />}
                                         >
                                             INICIAR EXPERIENCIA
