@@ -6,6 +6,10 @@
 -  Framework: React 19.2.3
 -  Language: Typescript 5.9.3
 -  Estilização: HeroUI React v2.8.6 + HeroUI Theme v2.4.24 (Downgraded due to v3 instability)
+-  Tailwind CSS: 4.1.18
+-  Graficos: Recharts 2.15.x
+-  Flowcharts: @xyflow/react 12.10.0
+-  3D: @react-three/fiber ^9 + @react-three/drei ^10 + @react-three/postprocessing ^3
 
 
 ## Condutas  
@@ -33,3 +37,4 @@ Obs: eu já rodei o comando de instalação da biblioteca do HeroUI
 
 - Caso precise instalar o tailwindcss a versão exata é:
     - Tailwind v 4.1.18
+- HeroUI Theme permanece em 2.4.24 (2.8.6 não está publicado no registry).
