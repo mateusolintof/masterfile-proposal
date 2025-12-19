@@ -18,7 +18,7 @@ export default function ImplementationPlan() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Plano de implantacao em fases
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     Estrutura clara para reduzir risco e acelerar valor entregue, com SLA e suporte continuo.
                 </p>
                 <Card className="bg-white/5 border border-white/10 backdrop-blur-md">

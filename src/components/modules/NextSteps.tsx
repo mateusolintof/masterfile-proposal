@@ -11,7 +11,7 @@ export default function NextSteps() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Vamos iniciar em ate 10 dias
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     Assinatura, onboarding rapido e kick-off com o time da CM Remedios.
                 </p>
                 <Card className="bg-white/5 border border-white/10 backdrop-blur-md">

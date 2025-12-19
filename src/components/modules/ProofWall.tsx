@@ -31,7 +31,7 @@ export default function ProofWall() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Credibilidade com casos reais
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     Cases e depoimentos para reforcar confianca antes da decisao.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

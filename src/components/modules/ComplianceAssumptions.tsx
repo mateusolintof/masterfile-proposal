@@ -19,7 +19,7 @@ export default function ComplianceAssumptions() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Assumptions, seguranca e conformidade
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     Regras e premissas para garantir previsibilidade juridica e tecnica.
                 </p>
                 <Card className="bg-white/5 border border-white/10 backdrop-blur-md">

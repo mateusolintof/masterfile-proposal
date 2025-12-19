@@ -32,7 +32,7 @@ export default function DashboardPreview() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Indicadores entregues para lideranca
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     KPIs conectados ao ROI: tempo de resposta, conversao, pipeline e receita recuperada.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

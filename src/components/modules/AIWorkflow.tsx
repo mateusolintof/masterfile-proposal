@@ -9,6 +9,7 @@ import {
     MiniMap,
     useNodesState,
     useEdgesState,
+    BackgroundVariant,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
@@ -84,14 +85,14 @@ export default function AIWorkflow() {
 
     const initialEdges = useMemo(
         () => [
-            { id: "e1", source: "whatsapp", target: "router", animated: true },
-            { id: "e2", source: "site", target: "router", animated: true },
-            { id: "e3", source: "router", target: "crm" },
-            { id: "e4", source: "router", target: "agenda" },
-            { id: "e5", source: "router", target: "pagamento" },
-            { id: "e6", source: "router", target: "handoff", animated: true },
-            { id: "e7", source: "router", target: "analytics" },
-            { id: "e8", source: "handoff", target: "crm" },
+            { id: "e1", source: "whatsapp", target: "router", animated: true, style: { stroke: "rgba(0, 255, 148, 0.6)" } },
+            { id: "e2", source: "site", target: "router", animated: true, style: { stroke: "rgba(255, 255, 255, 0.4)" } },
+            { id: "e3", source: "router", target: "crm", style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "e4", source: "router", target: "agenda", style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "e5", source: "router", target: "pagamento", style: { stroke: "rgba(0, 229, 255, 0.6)" } },
+            { id: "e6", source: "router", target: "handoff", animated: true, style: { stroke: "rgba(255, 255, 255, 0.4)" } },
+            { id: "e7", source: "router", target: "analytics", style: { stroke: "rgba(0, 229, 255, 0.4)" } },
+            { id: "e8", source: "handoff", target: "crm", style: { stroke: "rgba(255, 255, 255, 0.35)" } },
         ],
         []
     );
@@ -111,7 +112,7 @@ export default function AIWorkflow() {
                 </p>
                 <Card className="bg-white/5 border border-white/10 backdrop-blur-md">
                     <CardBody className="p-4">
-                        <div className="h-[420px] w-full">
+                        <div className="h-[420px] w-full rounded-xl overflow-hidden">
                             <ReactFlow
                                 nodes={nodes}
                                 edges={edges}
@@ -127,9 +128,15 @@ export default function AIWorkflow() {
                                 zoomOnScroll={false}
                                 zoomOnDoubleClick={false}
                                 proOptions={{ hideAttribution: true }}
+                                className="bg-[#0b0f16]"
                             >
-                                <Background />
-                                <MiniMap zoomable={false} pannable={false} />
+                                <Background variant={BackgroundVariant.Dots} gap={18} size={1} color="rgba(255,255,255,0.12)" />
+                                <MiniMap
+                                    zoomable={false}
+                                    pannable={false}
+                                    maskColor="rgba(2,4,10,0.6)"
+                                    nodeColor={() => "rgba(0, 229, 255, 0.5)"}
+                                />
                                 <Controls showInteractive={false} />
                             </ReactFlow>
                         </div>

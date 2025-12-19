@@ -20,7 +20,7 @@ export default function OfferPricing() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
                     Setup unico + operacao mensal
                 </h2>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-lg">
                     Separacao clara entre implantacao e operacao para reforcar valor continuo.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
