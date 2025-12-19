@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/react": "^2.8.6",
-    "@heroui/theme": "^2.4.24",
+    "@heroui/react": "2.8.6",
+    "@heroui/theme": "2.4.24",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",
     "@react-three/postprocessing": "^3.0.4",
@@ -19,7 +19,7 @@
     "framer-motion": "^12.0.0",
     "gsap": "^3.13.2",
     "lucide-react": "^0.562.0",
-    "next": "16.0.7",
+    "next": "16.0.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "recharts": "^2.15.0",
@@ -34,9 +34,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.0.7",
+    "eslint-config-next": "16.0.4",
     "glslify": "^7.1.1",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.9.2"
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3"
   }
 }

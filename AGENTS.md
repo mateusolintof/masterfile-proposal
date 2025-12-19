@@ -5,7 +5,7 @@
 -  Build: Next.js 16.0.4
 -  Framework: React 19.2.3
 -  Language: Typescript 5.9.3
--  Estilização: HeroUI v2.8.6 (Downgraded due to v3 instability)
+-  Estilização: HeroUI React v2.8.6 + HeroUI Theme v2.4.24 (Downgraded due to v3 instability)
 
 
 ## Condutas  
