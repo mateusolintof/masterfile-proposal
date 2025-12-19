@@ -35,8 +35,9 @@ export default function PainPointsGrid() {
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8">
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-center mb-12"
             >
                 <Chip variant="flat" color="danger" className="mb-4">DIAGNÓSTICO</Chip>

@@ -33,8 +33,15 @@ export default function ROICalculator() {
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
-            <Chip variant="flat" color="success" className="mb-4">VIABILIDADE</Chip>
-            <h2 className="text-4xl font-bold text-white mb-8">Matemática do Lucro</h2>
+            <motion.div
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-center mb-8"
+            >
+                <Chip variant="flat" color="success" className="mb-4">VIABILIDADE</Chip>
+                <h2 className="text-4xl font-bold text-white">Matemática do Lucro</h2>
+            </motion.div>
 
             <div className="w-full max-w-4xl h-[550px] flex gap-8">
                 {/* Control Panel */}

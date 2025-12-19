@@ -38,10 +38,15 @@ export default function TimelineScroller() {
 
             {/* Timeline Column */}
             <div className="w-1/3 flex flex-col gap-8 z-10">
-                <div className="mb-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="mb-4"
+                >
                     <Chip variant="flat" color="warning" className="mb-4">ROADMAP</Chip>
                     <h2 className="text-4xl font-bold text-white">Próximos Passos</h2>
-                </div>
+                </motion.div>
 
                 <div className="relative border-l border-white/10 pl-8 space-y-12">
                     {steps.map((step, index) => (

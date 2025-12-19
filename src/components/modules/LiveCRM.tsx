@@ -50,9 +50,16 @@ export default function LiveCRM() {
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
-            <Chip variant="flat" color="warning" className="mb-4">LIVE DEMO</Chip>
-            <h2 className="text-3xl font-bold text-white mb-2">CRM em Tempo Real</h2>
-            <p className="text-white/50 mb-8">Assista a IA trabalhando enquanto você descansa.</p>
+            <motion.div
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-center mb-8"
+            >
+                <Chip variant="flat" color="warning" className="mb-4">LIVE DEMO</Chip>
+                <h2 className="text-3xl font-bold text-white mb-2">CRM em Tempo Real</h2>
+                <p className="text-white/50">Assista a IA trabalhando enquanto você descansa.</p>
+            </motion.div>
 
             <div className="flex w-full max-w-6xl h-[600px] gap-6">
                 {/* KANBAN BOARD */}

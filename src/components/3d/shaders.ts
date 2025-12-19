@@ -19,13 +19,19 @@ void main() {
 
 export const fragmentShader = `
 uniform sampler2D uTexture;
+uniform float uSpeed;
 varying vec2 vUv;
 varying float vWave;
 
 void main() {
-  // Simple check to ensure we are rendering texture
   vec2 uv = vUv;
-  vec4 textureColor = texture2D(uTexture, uv + vWave * 0.1);
-  gl_FragColor = textureColor;
+  float shift = uSpeed * 0.005; // Adjust strength of aberration
+
+  // Chromatic Aberration: Sample R, G, B with offsets
+  float r = texture2D(uTexture, uv + vec2(shift, 0.0) + vWave * 0.1).r;
+  float g = texture2D(uTexture, uv + vWave * 0.1).g;
+  float b = texture2D(uTexture, uv - vec2(shift, 0.0) + vWave * 0.1).b;
+
+  gl_FragColor = vec4(r, g, b, 1.0);
 }
 `;

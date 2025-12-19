@@ -36,8 +36,15 @@ export default function BeforeAfterSlider() {
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
-            <Chip variant="flat" color="warning" className="mb-4">TRANSFORMAÇÃO</Chip>
-            <h2 className="text-4xl font-bold text-white mb-12 z-10">O Fim do Trabalho Manual</h2>
+            <motion.div
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-center mb-12 z-10"
+            >
+                <Chip variant="flat" color="warning" className="mb-4">TRANSFORMAÇÃO</Chip>
+                <h2 className="text-4xl font-bold text-white">O Fim do Trabalho Manual</h2>
+            </motion.div>
 
             <div ref={containerRef} className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden border border-white/20 shadow-2xl z-10">
                 {/* "BEFORE" Image/Content (Background) */}
