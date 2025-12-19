@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Convert.AI Proposal - The Glass Journey
+
+Interactive horizontal proposal for CM Remedios. The IntroGate works as the hero entry, then the narrative advances through 11 slides focused on problem, solution, proof, ROI, and next steps.
+
+## Stack (exact versions)
+- Next.js 16.0.4
+- React 19.2.3
+- TypeScript 5.9.3
+- HeroUI React 2.8.6 + HeroUI Theme 2.4.24
+- Tailwind CSS 4.1.18
+- Framer Motion 12.x
+- GSAP 3.13.x
+- R3F + Drei + @react-three/postprocessing
+- Recharts 2.15.x
+- @xyflow/react 12.10.0
+- Zustand 5.x
 
 ## Getting Started
-
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
+- `npm run dev` - dev server
+- `npm run build` - production build
+- `npm run start` - start production server
+- `npm run lint` - eslint
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Narrative Flow (11 slides)
+1. Diagnostico - `PainPointsGrid`
+2. Oportunidade - `BeforeAfterSlider`
+3. Solucao - `EcosystemOrbit` (agent modals with interactive flows)
+4. Dashboard - `DashboardPreview`
+5. CRM & Inbox - `LiveCRM`
+6. ROI - `ROICalculator`
+7. Implementacao - `ImplementationPlan`
+8. Oferta & Pricing - `OfferPricing`
+9. Compliance - `ComplianceAssumptions`
+10. Prova - `ProofWall`
+11. Next Steps - `NextSteps`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
+- `src/app/page.tsx` - horizontal navigation, dots, progress bar
+- `src/components/modules/IntroGate.tsx` - hero entry gate
+- `src/components/modules/EcosystemOrbit.tsx` - agents + XYFlow diagrams
+- `src/components/modules/DashboardPreview.tsx` - tabs and charts
+- `src/components/modules/LiveCRM.tsx` - CRM + inbox + contacts
+- `src/store/useProposalStore.ts` - shared state for ROI and navigation
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Numbers and pricing are fictitious placeholders.
+- The 3D background is intentionally softened to keep focus on content.
