@@ -186,7 +186,7 @@ export default function ROICalculator() {
                                                 <Users size={32} />
                                             </div>
                                             <p className="text-sm">3 SDRs Humanos</p>
-                                            <p className="text-xl font-bold text-red-400">R$ 7.500/mês</p>
+                                            <p className="text-xl font-bold text-red-400">R$ {humanCostMonthly.toLocaleString("pt-BR")}/mes</p>
                                         </div>
                                         <div className="text-2xl font-bold text-white/20">vs</div>
                                         <div className="text-center">
@@ -194,7 +194,9 @@ export default function ROICalculator() {
                                                 <Bot size={48} />
                                             </div>
                                             <p className="text-sm" style={{ color: 'var(--color-accent-success)' }}>1 AI Squad</p>
-                                            <p className="text-xl font-bold" style={{ color: 'var(--color-accent-success)' }}>R$ 1.500/mês</p>
+                                            <p className="text-xl font-bold" style={{ color: 'var(--color-accent-success)' }}>
+                                                R$ {aiCostMonthly.toLocaleString("pt-BR")}/mes
+                                            </p>
                                         </div>
                                     </div>
 

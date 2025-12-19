@@ -94,7 +94,7 @@ export default function Home() {
       <IntroGate />
 
       {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-35 pointer-events-none">
         <Scene />
       </div>
 

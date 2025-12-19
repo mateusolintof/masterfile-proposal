@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -16,6 +16,34 @@ function noise3D(x: number, y: number, z: number): number {
     return (n - Math.floor(n)) * 2 - 1;
 }
 
+function createSeededRandom(seed: number) {
+    let value = seed % 2147483647;
+    if (value <= 0) value += 2147483646;
+    return () => {
+        value = (value * 16807) % 2147483647;
+        return (value - 1) / 2147483646;
+    };
+}
+
+function createParticles(count: number) {
+    const positions = new Float32Array(count * 3);
+    const velocities = new Float32Array(count * 3);
+    const rand = createSeededRandom(count * 97 + 13);
+
+    for (let i = 0; i < count; i++) {
+        const i3 = i * 3;
+        positions[i3] = (rand() - 0.5) * 20;
+        positions[i3 + 1] = (rand() - 0.5) * 12;
+        positions[i3 + 2] = (rand() - 0.5) * 8;
+
+        velocities[i3] = (rand() - 0.5) * 0.02;
+        velocities[i3 + 1] = (rand() - 0.5) * 0.02;
+        velocities[i3 + 2] = (rand() - 0.5) * 0.02;
+    }
+
+    return { positions, velocities };
+}
+
 export default function ElegantNetwork({
     particleCount = 150,
     connectionDistance = 2.5,
@@ -25,33 +53,21 @@ export default function ElegantNetwork({
     const linesRef = useRef<THREE.LineSegments>(null);
     const timeRef = useRef(0);
 
-    // Generate initial particle positions
-    const { positions, velocities } = useMemo(() => {
-        const positions = new Float32Array(particleCount * 3);
-        const velocities = new Float32Array(particleCount * 3);
+    const particleData = useMemo(() => createParticles(particleCount), [particleCount]);
+    const positionsRef = useRef(particleData.positions);
+    const velocitiesRef = useRef(particleData.velocities);
 
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            // Spread particles in a wide area
-            positions[i3] = (Math.random() - 0.5) * 20;
-            positions[i3 + 1] = (Math.random() - 0.5) * 12;
-            positions[i3 + 2] = (Math.random() - 0.5) * 8;
-
-            // Initial velocities
-            velocities[i3] = (Math.random() - 0.5) * 0.02;
-            velocities[i3 + 1] = (Math.random() - 0.5) * 0.02;
-            velocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
-        }
-
-        return { positions, velocities };
-    }, [particleCount]);
+    useEffect(() => {
+        positionsRef.current = particleData.positions;
+        velocitiesRef.current = particleData.velocities;
+    }, [particleData]);
 
     // Create geometry for particles
     const particleGeometry = useMemo(() => {
         const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute("position", new THREE.BufferAttribute(positions.slice(), 3));
+        geometry.setAttribute("position", new THREE.BufferAttribute(particleData.positions.slice(), 3));
         return geometry;
-    }, [positions]);
+    }, [particleData.positions]);
 
     // Create geometry for lines (connections)
     const lineGeometry = useMemo(() => {
@@ -73,6 +89,8 @@ export default function ElegantNetwork({
 
         const pointPositions = pointsRef.current.geometry.attributes.position.array as Float32Array;
         const linePositions = linesRef.current.geometry.attributes.position.array as Float32Array;
+        const positions = positionsRef.current;
+        const velocities = velocitiesRef.current;
 
         // Update particle positions with organic noise-based movement
         for (let i = 0; i < particleCount; i++) {

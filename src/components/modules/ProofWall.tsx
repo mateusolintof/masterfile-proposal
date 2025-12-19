@@ -50,7 +50,7 @@ export default function ProofWall() {
                                         </div>
                                     ))}
                                 </div>
-                                <p className="text-white/60 mt-4 text-sm">"{proof.quote}"</p>
+                                <p className="text-white/60 mt-4 text-sm">&quot;{proof.quote}&quot;</p>
                             </CardBody>
                         </Card>
                     ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { GripVertical } from "lucide-react";
 import { Chip } from "@heroui/react";
@@ -29,10 +29,6 @@ export default function BeforeAfterSlider() {
 
     // Map x to percentage string for clip-path
     const clipPath = useTransform(x, [0, width], ["inset(0 100% 0 0)", "inset(0 0 0 0)"]);
-
-    const handleDrag = (_event: MouseEvent | TouchEvent | PointerEvent, _info: PanInfo) => {
-        // Constraints handled by framer-motion dragConstraints
-    };
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
@@ -108,7 +104,6 @@ export default function BeforeAfterSlider() {
                     dragConstraints={containerRef}
                     dragElastic={0}
                     dragMomentum={false}
-                    onDrag={handleDrag}
                 >
                     <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg transform -translate-x-1/2">
                         <GripVertical className="text-black w-5 h-5" />
