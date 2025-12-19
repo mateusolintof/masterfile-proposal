@@ -55,7 +55,7 @@ export default function Home() {
   }, [handleScroll]);
 
   return (
-    <main className="h-screen w-screen bg-[#050505] text-white relative overflow-hidden">
+    <main className="h-screen w-screen bg-[#02040A] text-white relative overflow-hidden">
       <IntroGate />
 
       {/* 3D Background */}

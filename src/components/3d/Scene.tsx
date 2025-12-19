@@ -2,25 +2,34 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import DistortionPlane from "./DistortionPlane";
-import { useProposalStore } from "@/store/useProposalStore";
-
-// Use a single texture for now until all textures are available
-const DEFAULT_TEXTURE = "/textures/node_01.png";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
+import ElegantNetwork from "./ElegantNetwork";
 
 export default function Scene() {
-    const scrollSpeed = useProposalStore((state) => state.scrollSpeed);
-
     return (
-        <div className="fixed inset-0 z-0 bg-[#050505]">
-            <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <div className="fixed inset-0 z-0 bg-[#02040A]">
+            <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
                 <Suspense fallback={null}>
-                    <color attach="background" args={["#050505"]} />
-                    <DistortionPlane
-                        textureUrl={DEFAULT_TEXTURE}
-                        speed={scrollSpeed}
+                    <color attach="background" args={["#02040A"]} />
+                    <ElegantNetwork
+                        particleCount={150}
+                        connectionDistance={2.5}
+                        speed={0.0005}
                     />
-                    <ambientLight intensity={0.5} />
+                    <ambientLight intensity={0.3} />
+
+                    {/* Post-processing effects */}
+                    <EffectComposer>
+                        <Bloom
+                            intensity={0.3}
+                            luminanceThreshold={0.8}
+                            luminanceSmoothing={0.9}
+                        />
+                        <Vignette
+                            offset={0.3}
+                            darkness={0.7}
+                        />
+                    </EffectComposer>
                 </Suspense>
             </Canvas>
         </div>

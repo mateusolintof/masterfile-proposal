@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
+  --background: #02040A;
   --foreground: #ededed;
   /* Design System Colors (SPEC) */
   --color-accent-success: #00FF94;
   --color-accent-tech: #00E5FF;
   --color-error: #FF4D4D;
+  /* Elegant Network Theme */
+  --color-background-deep: #02040A;
+  --color-particles: rgba(255, 255, 255, 0.6);
+  --color-connections: #4F4F4F;
 }
 
 @theme inline {
