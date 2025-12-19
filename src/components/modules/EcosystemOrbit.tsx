@@ -70,8 +70,8 @@ export default function EcosystemOrbit() {
             {/* Orbit Container */}
             <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] flex items-center justify-center z-10">
                 {/* Center Core */}
-                <div className="absolute w-24 h-24 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,255,0.2)]">
-                    <BrainCircuit className="w-10 h-10 text-cyan-400 animate-pulse" />
+                <div className="absolute w-24 h-24 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(0,229,255,0.2)]">
+                    <BrainCircuit className="w-10 h-10 animate-pulse" style={{ color: 'var(--color-accent-tech)' }} />
                 </div>
 
                 {/* Orbit Rings */}
@@ -87,7 +87,7 @@ export default function EcosystemOrbit() {
                     return (
                         <motion.button
                             key={agent.id}
-                            className="absolute w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-cyan-400 hover:scale-110 transition-all flex items-center justify-center backdrop-blur-md group"
+                            className="absolute w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-[#00E5FF] hover:scale-110 transition-all flex items-center justify-center backdrop-blur-md group"
                             style={{
                                 top: `calc(50% + ${Math.sin(angle) * radius}px - 32px)`,
                                 left: `calc(50% + ${Math.cos(angle) * radius}px - 32px)`,
@@ -97,7 +97,7 @@ export default function EcosystemOrbit() {
                             transition={{ delay: 0.2 + index * 0.1 }}
                             onClick={() => handleAgentClick(agent)}
                         >
-                            <div className="text-white/80 group-hover:text-cyan-400 transition-colors">
+                            <div className="text-white/80 group-hover:text-[#00E5FF] transition-colors">
                                 {agent.icon}
                             </div>
                             <span className="absolute -bottom-8 text-xs font-medium text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
@@ -128,7 +128,7 @@ export default function EcosystemOrbit() {
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xl font-bold">{selectedAgent.name}</span>
-                                    <span className="text-xs text-cyan-400 uppercase tracking-wider">{selectedAgent.role}</span>
+                                    <span className="text-xs uppercase tracking-wider" style={{ color: 'var(--color-accent-tech)' }}>{selectedAgent.role}</span>
                                 </div>
                             </ModalHeader>
                             <ModalBody className="py-6">
@@ -138,7 +138,7 @@ export default function EcosystemOrbit() {
                                 <div className="space-y-2">
                                     {selectedAgent.stats.map((stat, i) => (
                                         <div key={i} className="flex items-center gap-2 text-sm text-white/60">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                                            <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-accent-tech)' }} />
                                             {stat}
                                         </div>
                                     ))}

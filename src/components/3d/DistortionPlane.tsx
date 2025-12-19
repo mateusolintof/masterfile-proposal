@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { vertexShader, fragmentShader } from "./shaders";
 
 interface DistortionPlaneProps {
-    textureUrl: string; // Placeholder for now, will receive real URLs later
+    textureUrl: string;
     speed: number;
 }
 

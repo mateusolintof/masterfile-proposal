@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@heroui/react": "^2.8.6",
-    "@heroui/theme": "beta",
+    "@heroui/theme": "^2.8.6",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",
     "babel-plugin-react-compiler": "^1.0.0",

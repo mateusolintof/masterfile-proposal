@@ -52,9 +52,16 @@ export default function TimelineScroller() {
                             transition={{ delay: index * 0.2 }}
                             className="relative"
                         >
-                            <div className={`absolute -left-[41px] top-0 w-5 h-5 rounded-full border-4 border-black ${step.status === 'done' ? 'bg-green-500' :
-                                step.status === 'current' ? 'bg-blue-500 animate-pulse' : 'bg-white/20'
-                                }`} />
+                            <div
+                                className={`absolute -left-[41px] top-0 w-5 h-5 rounded-full border-4 border-black ${step.status === 'current' ? 'animate-pulse' : ''}`}
+                                style={{
+                                    backgroundColor: step.status === 'done'
+                                        ? 'var(--color-accent-success)'
+                                        : step.status === 'current'
+                                            ? 'var(--color-accent-tech)'
+                                            : 'rgba(255, 255, 255, 0.2)'
+                                }}
+                            />
 
                             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{step.week}</span>
                             <h3 className="text-xl font-bold text-white my-1">{step.title}</h3>
@@ -85,19 +92,19 @@ export default function TimelineScroller() {
 
                         <ul className="text-left space-y-3 mb-8">
                             <li className="flex items-center gap-3 text-white/80">
-                                <CheckCircle size={16} className="text-green-400" />
+                                <CheckCircle size={16} style={{ color: 'var(--color-accent-success)' }} />
                                 Setup CRM Completo
                             </li>
                             <li className="flex items-center gap-3 text-white/80">
-                                <CheckCircle size={16} className="text-green-400" />
+                                <CheckCircle size={16} style={{ color: 'var(--color-accent-success)' }} />
                                 Treinamento Agentes IA
                             </li>
                             <li className="flex items-center gap-3 text-white/80">
-                                <CheckCircle size={16} className="text-green-400" />
+                                <CheckCircle size={16} style={{ color: 'var(--color-accent-success)' }} />
                                 Integração WhatsApp Oficial
                             </li>
                             <li className="flex items-center gap-3 text-white/80">
-                                <CheckCircle size={16} className="text-green-400" />
+                                <CheckCircle size={16} style={{ color: 'var(--color-accent-success)' }} />
                                 Dashboard de ROI em Tempo Real
                             </li>
                         </ul>

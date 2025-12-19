@@ -9,6 +9,9 @@ interface ProposalState {
     // Navigation State
     isIntroComplete: boolean;
     completeIntro: () => void;
+    // Scroll/Distortion State
+    scrollSpeed: number;
+    setScrollSpeed: (value: number) => void;
 }
 
 export const useProposalStore = create<ProposalState>((set) => ({
@@ -18,4 +21,6 @@ export const useProposalStore = create<ProposalState>((set) => ({
     setLeadsPerMonth: (value) => set({ leadsPerMonth: value }),
     isIntroComplete: false,
     completeIntro: () => set({ isIntroComplete: true }),
+    scrollSpeed: 0,
+    setScrollSpeed: (value) => set({ scrollSpeed: value }),
 }));

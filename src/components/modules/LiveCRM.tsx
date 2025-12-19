@@ -91,18 +91,19 @@ export default function LiveCRM() {
                     {/* Other Columns (Visual only) */}
                     <div className="bg-black/40 border border-white/10 rounded-xl p-4 flex-1 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs font-bold text-cyan-400/50 uppercase">Em Negociação</span>
+                            <span className="text-xs font-bold uppercase" style={{ color: 'rgba(0, 229, 255, 0.5)' }}>Em Negociação</span>
                         </div>
                         <AnimatePresence>
                             {column === "negotiating" && (
                                 <motion.div
                                     layoutId="lead-card"
-                                    className="h-20 bg-white/10 rounded-lg border-l-4 border-cyan-500 p-3 flex items-center gap-3"
+                                    className="h-20 bg-white/10 rounded-lg border-l-4 p-3 flex items-center gap-3"
+                                    style={{ borderLeftColor: 'var(--color-accent-tech)' }}
                                 >
                                     <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" size="sm" />
                                     <div>
                                         <p className="text-sm font-bold text-white">Carlos Silva</p>
-                                        <p className="text-xs text-cyan-400">Respondendo...</p>
+                                        <p className="text-xs" style={{ color: 'var(--color-accent-tech)' }}>Respondendo...</p>
                                     </div>
                                 </motion.div>
                             )}
@@ -111,18 +112,19 @@ export default function LiveCRM() {
 
                     <div className="bg-black/40 border border-white/10 rounded-xl p-4 flex-1 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs font-bold text-green-400/50 uppercase">Agendados</span>
+                            <span className="text-xs font-bold uppercase" style={{ color: 'rgba(0, 255, 148, 0.5)' }}>Agendados</span>
                         </div>
                         <AnimatePresence>
                             {column === "scheduled" && (
                                 <motion.div
                                     layoutId="lead-card"
-                                    className="h-20 bg-green-500/20 rounded-lg border-l-4 border-green-500 p-3 flex items-center gap-3"
+                                    className="h-20 rounded-lg border-l-4 p-3 flex items-center gap-3"
+                                    style={{ backgroundColor: 'rgba(0, 255, 148, 0.2)', borderLeftColor: 'var(--color-accent-success)' }}
                                 >
                                     <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" size="sm" />
                                     <div>
                                         <p className="text-sm font-bold text-white">Carlos Silva</p>
-                                        <p className="text-xs text-green-400">Reunião: Amanhã 16h</p>
+                                        <p className="text-xs" style={{ color: 'var(--color-accent-success)' }}>Reunião: Amanhã 16h</p>
                                     </div>
                                 </motion.div>
                             )}
@@ -138,8 +140,8 @@ export default function LiveCRM() {
                                 <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
                                 <div>
                                     <p className="font-bold text-white">Carlos Silva</p>
-                                    <p className="text-xs text-green-400 flex items-center gap-1">
-                                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> Online
+                                    <p className="text-xs flex items-center gap-1" style={{ color: 'var(--color-accent-success)' }}>
+                                        <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--color-accent-success)' }} /> Online
                                     </p>
                                 </div>
                             </div>

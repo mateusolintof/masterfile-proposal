@@ -26,11 +26,10 @@ export default function ROICalculator() {
         { name: "Com IA", revenue: revenueAI },
     ];
 
-    // Economy Tab
-    const employeeCost = 2500 * 3; // 3 employees
-    const aiCost = 5000 / 12; // Assuming 5k setup / 12? No, monthly cost. Let's say 1500 as per previous code.
-    // Previous code said: 3 SDRs = 7500, AI = 1500.
-    const savings = (7500 - 1500) * 12;
+    // Economy Tab - Annual savings calculation
+    const humanCostMonthly = 7500; // 3 SDRs
+    const aiCostMonthly = 1500;    // AI Squad
+    const savings = (humanCostMonthly - aiCostMonthly) * 12;
 
     return (
         <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
@@ -102,8 +101,8 @@ export default function ROICalculator() {
                                                     contentStyle={{ backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px' }}
                                                 />
                                                 <Bar dataKey="revenue" radius={[6, 6, 0, 0]} animationDuration={1000}>
-                                                    {chartData.map((entry, index) => (
-                                                        <Cell key={`cell-${index}`} fill={index === 0 ? '#555' : '#00FF94'} />
+                                                    {chartData.map((_, index) => (
+                                                        <Cell key={`cell-${index}`} fill={index === 0 ? '#555' : 'var(--color-accent-success)'} />
                                                     ))}
                                                 </Bar>
                                             </BarChart>
@@ -111,7 +110,7 @@ export default function ROICalculator() {
                                     </div>
                                     <div className="mt-4 text-center">
                                         <span className="text-white/40 text-sm">Receita Projetada (Mensal)</span>
-                                        <div className="text-4xl font-bold text-green-400">
+                                        <div className="text-4xl font-bold" style={{ color: 'var(--color-accent-success)' }}>
                                             R$ {revenueAI.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                                         </div>
                                     </div>
@@ -131,17 +130,17 @@ export default function ROICalculator() {
                                         </div>
                                         <div className="text-2xl font-bold text-white/20">vs</div>
                                         <div className="text-center">
-                                            <div className="flex justify-center mb-4 text-green-400">
+                                            <div className="flex justify-center mb-4" style={{ color: 'var(--color-accent-success)' }}>
                                                 <Bot size={48} />
                                             </div>
-                                            <p className="text-sm text-green-400">1 AI Squad</p>
-                                            <p className="text-xl font-bold text-green-400">R$ 1.500/mês</p>
+                                            <p className="text-sm" style={{ color: 'var(--color-accent-success)' }}>1 AI Squad</p>
+                                            <p className="text-xl font-bold" style={{ color: 'var(--color-accent-success)' }}>R$ 1.500/mês</p>
                                         </div>
                                     </div>
 
-                                    <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-8 w-full text-center">
+                                    <div className="rounded-2xl p-8 w-full text-center" style={{ backgroundColor: 'rgba(0, 255, 148, 0.1)', border: '1px solid rgba(0, 255, 148, 0.2)' }}>
                                         <p className="text-white/60 mb-2 uppercase tracking-widest text-xs">Economia Anual Projetada</p>
-                                        <div className="text-5xl font-bold text-green-400 flex items-center justify-center gap-2">
+                                        <div className="text-5xl font-bold flex items-center justify-center gap-2" style={{ color: 'var(--color-accent-success)' }}>
                                             <DollarSign size={32} />
                                             {savings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                                         </div>
