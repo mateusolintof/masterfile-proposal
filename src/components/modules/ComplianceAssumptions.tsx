@@ -3,10 +3,12 @@
 import { Card, CardBody, Chip } from "@heroui/react";
 
 const items = [
-    { title: "LGPD", desc: "Dados tratados com consentimento, minimizacao e logs." },
-    { title: "WhatsApp API", desc: "Uso oficial com templates e regras de janela." },
-    { title: "Assumptions", desc: "Acesso a CRM, agenda e mensagens historicas." },
-    { title: "SLA", desc: "Janela de suporte e tempos de resposta definidos." },
+    { title: "LGPD", desc: "Consentimento, minimizacao de dados e logs de acesso." },
+    { title: "WhatsApp API", desc: "Uso oficial com templates aprovados e janela de 24h." },
+    { title: "Seguranca", desc: "Criptografia em transito e controles de acesso por perfil." },
+    { title: "Assumptions", desc: "Acesso a CRM, agenda e historico de mensagens." },
+    { title: "SLA", desc: "Tempo de resposta e monitoramento continuo definidos." },
+    { title: "Retencao", desc: "Politica de armazenamento alinhada ao contrato." },
 ];
 
 export default function ComplianceAssumptions() {
