@@ -11,6 +11,12 @@ const objectives = [
     "Reducao da taxa de No-Show",
 ];
 
+const execSummary = [
+    { label: "Escopo", value: "Agentes IA + CRM + Integracoes" },
+    { label: "ROI estimado", value: "3-5x em 90 dias" },
+    { label: "Timeline", value: "Go-Live em 3 semanas" },
+];
+
 export default function IntroGate() {
     const { isIntroComplete, completeIntro } = useProposalStore();
 
@@ -125,9 +131,21 @@ export default function IntroGate() {
                                         >
                                             INICIAR EXPERIENCIA
                                         </Button>
+                                        <p className="text-xs text-white/40 text-center mt-3">
+                                            Dica: use o scroll horizontal, arraste ou setas para navegar.
+                                        </p>
                                     </motion.div>
                                 </CardBody>
                             </Card>
+
+                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/60">
+                                {execSummary.map((item) => (
+                                    <div key={item.label} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                                        <p className="uppercase tracking-widest text-white/40">{item.label}</p>
+                                        <p className="text-white/80 mt-2">{item.value}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </motion.div>
                     </div>
                 </motion.div>

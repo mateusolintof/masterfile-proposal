@@ -8,27 +8,33 @@ const painPoints = [
     {
         id: 1,
         title: "Leads Esfriando",
-        desc: "60% dos leads desistem se não atendidos em 5 min.",
+        desc: "Boa parte dos contatos abandona quando a resposta passa de 5 min.",
         icon: <Clock className="w-6 h-6 text-orange-400" />,
-        stat: "-40% Conversão",
-        tooltip: "Tempo médio de resposta atual: 4h"
+        stat: "-38% Conversao",
+        tooltip: "Tempo medio de resposta atual: 3h12m"
     },
     {
         id: 2,
         title: "Custo Operacional",
-        desc: "SDRs humanos custam caro e escalam mal.",
+        desc: "Equipe humana escala linearmente e pressiona margem.",
         icon: <DollarSign className="w-6 h-6 text-red-400" />,
         stat: "R$ 4k/SDR",
-        tooltip: "Custo aumenta linearmente com a demanda"
+        tooltip: "Custos sobem conforme a demanda de leads"
     },
     {
         id: 3,
-        title: "Atendimento 8h/5",
-        desc: "Seu cliente quer comprar sábado à noite.",
-        icon: <Activity className="w-6 h-6 text-purple-400" />,
-        stat: "Perda de Oportunidades",
-        tooltip: "70% do tráfego ocorre fora do horário comercial"
+        title: "Atendimento Limitado",
+        desc: "Pacientes pesquisam e decidem fora do horario comercial.",
+        icon: <Activity className="w-6 h-6 text-amber-400" />,
+        stat: "Janelas Perdidas",
+        tooltip: "52% dos acessos fora do horario comercial"
     }
+];
+
+const baselineMetrics = [
+    { label: "Resposta media", value: "3h12m" },
+    { label: "Conversao atual", value: "7,8%" },
+    { label: "No-show", value: "18%" },
 ];
 
 export default function PainPointsGrid() {
@@ -46,6 +52,24 @@ export default function PainPointsGrid() {
                     Escalar vendas com humanos é linear e custoso. A tecnologia rompe essa barreira.
                 </p>
             </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl w-full mb-8">
+                {baselineMetrics.map((metric) => (
+                    <div key={metric.label} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                        <p className="text-xs uppercase tracking-widest text-white/40">{metric.label}</p>
+                        <p className="text-2xl font-semibold text-white mt-2">{metric.value}</p>
+                    </div>
+                ))}
+            </div>
+            <div className="max-w-6xl w-full mb-8">
+                <div className="bg-white/5 border border-red-500/30 rounded-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <div>
+                        <p className="text-xs uppercase tracking-widest text-red-300/70">Custo do atraso</p>
+                        <p className="text-white/80 text-sm">Estimativa de receita perdida por demora no atendimento.</p>
+                    </div>
+                    <p className="text-2xl font-semibold text-red-300">R$ 48.000/mes</p>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full">
                 {painPoints.map((point, index) => (

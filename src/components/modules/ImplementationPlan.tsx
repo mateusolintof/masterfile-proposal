@@ -4,9 +4,10 @@ import { Card, CardBody, Chip } from "@heroui/react";
 
 const phases = [
     { title: "Discovery", desc: "Mapeamento de processos, dados e metas clinicas." },
-    { title: "Integracoes", desc: "WhatsApp API, agenda e CRM com rotas seguras." },
-    { title: "Treinamento", desc: "Calibracao de tom de voz, intents e handoffs." },
-    { title: "QA + Go-Live", desc: "Testes, monitoramento e otimizacao continua." },
+    { title: "Integracoes", desc: "WhatsApp API, agenda, CRM e conectores essenciais." },
+    { title: "Treinamento", desc: "Calibracao de tom, intents, scripts e handoffs." },
+    { title: "QA + Go-Live", desc: "Testes, ajustes finais e monitoramento assistido." },
+    { title: "Otimizacao", desc: "A/B de mensagens, melhorias e metas trimestrais." },
 ];
 
 export default function ImplementationPlan() {
@@ -18,7 +19,7 @@ export default function ImplementationPlan() {
                     Plano de implantacao em fases
                 </h2>
                 <p className="text-white/60 text-lg">
-                    Estrutura clara para reduzir risco e acelerar valor entregue.
+                    Estrutura clara para reduzir risco e acelerar valor entregue, com SLA e suporte continuo.
                 </p>
                 <Card className="bg-white/5 border border-white/10 backdrop-blur-md">
                     <CardBody className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -30,6 +31,9 @@ export default function ImplementationPlan() {
                         ))}
                     </CardBody>
                 </Card>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-white/70 text-sm">
+                    SLA proposto: resposta em ate 2h para ajustes e suporte em dias uteis.
+                </div>
             </div>
         </section>
     );

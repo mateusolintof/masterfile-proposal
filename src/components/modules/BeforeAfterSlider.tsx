@@ -42,8 +42,8 @@ export default function BeforeAfterSlider() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-center mb-12 z-10"
             >
-                <Chip variant="flat" color="warning" className="mb-4">TRANSFORMAÇÃO</Chip>
-                <h2 className="text-4xl font-bold text-white">O Fim do Trabalho Manual</h2>
+                <Chip variant="flat" color="warning" className="mb-4">OPORTUNIDADE</Chip>
+                <h2 className="text-4xl font-bold text-white">Comparativo do funil atual vs IA</h2>
             </motion.div>
 
             <div ref={containerRef} className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden border border-white/20 shadow-2xl z-10">
@@ -51,19 +51,22 @@ export default function BeforeAfterSlider() {
                 <div className="absolute inset-0 bg-neutral-900 flex items-center justify-center grayscale">
                     <div className="grid grid-cols-2 w-full h-full p-12 gap-8 opacity-50">
                         <div className="space-y-4">
-                            <div className="h-8 w-3/4 bg-white/10 rounded animate-pulse" />
-                            <div className="h-4 w-full bg-white/10 rounded" />
-                            <div className="h-4 w-5/6 bg-white/10 rounded" />
+                            <div className="text-sm uppercase tracking-widest text-white/30">Processo Atual</div>
+                            <div className="text-white/70 text-sm space-y-2">
+                                <div>Resposta media: 3h12m</div>
+                                <div>Conversao: 7,8%</div>
+                                <div>No-show: 18%</div>
+                            </div>
                             <div className="h-32 w-full bg-white/5 rounded border border-white/10 p-4 font-mono text-xs text-red-400">
-                                [ERROR] Lead perdu...
+                                [TIMEOUT] Resposta fora da janela
                                 <br />
-                                [TIMEOUT] Response &gt; 4h
+                                [MANUAL] Agenda fragmentada
                                 <br />
-                                [MANUAL] Spreadsheet.xls
+                                [DROP] Lead sem follow-up
                             </div>
                         </div>
                         <div className="flex items-center justify-center border border-dashed border-white/20 rounded-xl">
-                            <span className="text-4xl font-bold text-white/20">MANUAL</span>
+                            <span className="text-3xl font-bold text-white/20">ATUAL</span>
                         </div>
                     </div>
                 </div>
@@ -75,19 +78,24 @@ export default function BeforeAfterSlider() {
                 >
                     <div className="grid grid-cols-2 w-full h-full p-12 gap-8">
                         <div className="space-y-4">
-                            <div className="h-8 w-3/4 rounded" style={{ backgroundColor: 'rgba(0, 229, 255, 0.2)' }} />
-                            <div className="h-4 w-full rounded" style={{ backgroundColor: 'rgba(0, 229, 255, 0.1)' }} />
-                            <div className="h-4 w-5/6 rounded" style={{ backgroundColor: 'rgba(0, 229, 255, 0.1)' }} />
+                            <div className="text-sm uppercase tracking-widest" style={{ color: 'var(--color-accent-tech)' }}>
+                                Processo com IA
+                            </div>
+                            <div className="text-white/80 text-sm space-y-2">
+                                <div>Resposta media: 45s</div>
+                                <div>Conversao: 12,4%</div>
+                                <div>No-show: 10%</div>
+                            </div>
                             <div className="h-32 w-full rounded p-4 font-mono text-xs shadow-[0_0_30px_rgba(0,229,255,0.1)]" style={{ backgroundColor: 'rgba(0, 50, 80, 0.5)', border: '1px solid rgba(0, 229, 255, 0.3)', color: 'var(--color-accent-tech)' }}>
-                                [SUCCESS] Lead qualified
+                                [SUCCESS] Lead qualificado
                                 <br />
-                                [INSTANT] Response: 500ms
+                                [INSTANT] Resposta em 45s
                                 <br />
-                                [AUTO] CRM Updated
+                                [AUTO] CRM atualizado
                             </div>
                         </div>
                         <div className="flex items-center justify-center rounded-xl backdrop-blur-sm" style={{ border: '1px solid rgba(0, 229, 255, 0.5)', backgroundColor: 'rgba(0, 229, 255, 0.05)' }}>
-                            <span className="text-4xl font-bold drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]" style={{ color: 'var(--color-accent-tech)' }}>AUTOMÁTICO</span>
+                            <span className="text-3xl font-bold drop-shadow-[0_0_10px_rgba(0,229,255,0.5)]" style={{ color: 'var(--color-accent-tech)' }}>COM IA</span>
                         </div>
                     </div>
                 </motion.div>
@@ -109,10 +117,10 @@ export default function BeforeAfterSlider() {
 
                 {/* Labels */}
                 <div className="absolute top-6 left-6 px-3 py-1 bg-black/50 backdrop-blur rounded text-xs font-bold text-white/50 border border-white/10 pointer-events-none">
-                    ANTES
+                    BASE ATUAL
                 </div>
                 <div className="absolute top-6 right-6 px-3 py-1 backdrop-blur rounded text-xs font-bold pointer-events-none" style={{ backgroundColor: 'rgba(0, 229, 255, 0.2)', color: 'var(--color-accent-tech)', border: '1px solid rgba(0, 229, 255, 0.3)' }}>
-                    DEPOIS
+                    COM IA
                 </div>
             </div>
         </section>

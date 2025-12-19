@@ -12,12 +12,12 @@ type Message = {
 };
 
 const script: Message[] = [
-    { id: 1, role: "lead", text: "Olá, gostaria de saber mais sobre o implante." },
-    { id: 2, role: "ai", text: "Olá! Claro. Temos horários disponíveis para avaliação gratuita amanhã. Prefere manhã ou tarde?" },
+    { id: 1, role: "lead", text: "Oi, gostaria de agendar uma consulta de avaliacao." },
+    { id: 2, role: "ai", text: "Ola! Claro. Posso sugerir horarios para amanha. Prefere manha ou tarde?" },
     { id: 3, role: "lead", text: "Pode ser a tarde." },
     { id: 4, role: "ai", text: "Perfeito. Tenho 14:30 ou 16:00. Qual fica melhor?" },
     { id: 5, role: "lead", text: "16:00 por favor." },
-    { id: 6, role: "ai", text: "Agendado! Te enviei a confirmação no WhatsApp. Até lá!" },
+    { id: 6, role: "ai", text: "Agendado! Te enviei a confirmacao no WhatsApp. Ate la!" },
 ];
 
 export default function LiveCRM() {
@@ -66,7 +66,7 @@ export default function LiveCRM() {
                 <div className="w-1/3 h-full flex flex-col gap-4">
                     <div className="bg-black/40 border border-white/10 rounded-xl p-4 flex-1 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs font-bold text-white/50 uppercase">Novos Leads</span>
+                            <span className="text-xs font-bold text-white/50 uppercase">Novas Conversas</span>
                             <Chip size="sm" variant="flat">12</Chip>
                         </div>
                         {/* Ghost Cards */}
@@ -88,7 +88,7 @@ export default function LiveCRM() {
                                     <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" size="sm" />
                                     <div>
                                         <p className="text-sm font-bold text-white">Carlos Silva</p>
-                                        <p className="text-xs text-white/50">Interesse: Implante</p>
+                                        <p className="text-xs text-white/50">Interesse: Consulta</p>
                                     </div>
                                 </motion.div>
                             )}
@@ -98,7 +98,7 @@ export default function LiveCRM() {
                     {/* Other Columns (Visual only) */}
                     <div className="bg-black/40 border border-white/10 rounded-xl p-4 flex-1 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs font-bold uppercase" style={{ color: 'rgba(0, 229, 255, 0.5)' }}>Em Negociação</span>
+                            <span className="text-xs font-bold uppercase" style={{ color: 'rgba(0, 229, 255, 0.5)' }}>Em Qualificacao</span>
                         </div>
                         <AnimatePresence>
                             {column === "negotiating" && (

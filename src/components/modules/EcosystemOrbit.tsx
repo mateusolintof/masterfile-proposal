@@ -51,6 +51,21 @@ const agents = [
     }
 ];
 
+const workflowNotes = [
+    {
+        title: "Handoffs",
+        desc: "Escala para humano quando ha objecao critica, pedido de preco ou falta de resposta."
+    },
+    {
+        title: "Ferramentas",
+        desc: "Agenda, CRM, templates WhatsApp, pagamento e base de conhecimento."
+    },
+    {
+        title: "Guardrails",
+        desc: "LGPD, limites de risco clinico e confirmacao humana em casos sensiveis."
+    }
+];
+
 export default function EcosystemOrbit() {
     const [selectedAgent, setSelectedAgent] = useState(agents[0]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +86,7 @@ export default function EcosystemOrbit() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="z-10 text-center mb-16"
             >
-                <Chip variant="flat" color="warning" className="mb-4">Ecosystem</Chip>
+                <Chip variant="flat" color="warning" className="mb-4">SOLUCAO</Chip>
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">A Nova Ordem</h2>
                 <p className="text-white/60">Seu time de elite trabalhando 24/7.</p>
             </motion.div>
@@ -105,6 +120,15 @@ export default function EcosystemOrbit() {
                             {agent.name}
                         </span>
                     </motion.button>
+                ))}
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full z-10">
+                {workflowNotes.map((note) => (
+                    <div key={note.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                        <p className="text-xs uppercase tracking-widest text-white/40">{note.title}</p>
+                        <p className="text-white/70 mt-2 text-sm">{note.desc}</p>
+                    </div>
                 ))}
             </div>
 
