@@ -15,9 +15,6 @@ interface ProposalState {
     // Navigation State
     isIntroComplete: boolean;
     completeIntro: () => void;
-    // Scroll/Distortion State
-    scrollSpeed: number;
-    setScrollSpeed: (value: number) => void;
 }
 
 export const useProposalStore = create<ProposalState>((set) => ({
@@ -33,6 +30,4 @@ export const useProposalStore = create<ProposalState>((set) => ({
     monthlyOpex: 2500,
     isIntroComplete: false,
     completeIntro: () => set({ isIntroComplete: true }),
-    scrollSpeed: 0,
-    setScrollSpeed: (value) => set({ scrollSpeed: value }),
 }));

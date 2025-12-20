@@ -14,13 +14,12 @@ CLIENTE: CM REMEDIOS
 ```json
 {
   "dependencies": {
-    "next": "16.0.4",
+    "next": "16.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "@heroui/react": "2.8.6",
     "@heroui/theme": "2.4.24",
     "framer-motion": "^12.0.0",
-    "gsap": "^3.13.2",
     "@react-three/fiber": "^9.0.0",
     "@react-three/drei": "^10.0.0",
     "@react-three/postprocessing": "^3.0.4",

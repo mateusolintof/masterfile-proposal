@@ -23,25 +23,24 @@ const Scene = dynamic(() => import("@/components/3d/Scene"), { ssr: false });
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastScrollLeft = useRef(0);
   const { scrollXProgress } = useScroll({ container: containerRef });
 
-  const setScrollSpeed = useProposalStore((state) => state.setScrollSpeed);
   const setActiveSlide = useProposalStore((state) => state.setActiveSlide);
   const activeSlide = useProposalStore((state) => state.activeSlide);
+  const isIntroComplete = useProposalStore((state) => state.isIntroComplete);
 
   const slides = [
-    { id: "diagnosis", label: "Diagnostico", element: <PainPointsGrid /> },
+    { id: "diagnosis", label: "Diagnóstico", element: <PainPointsGrid /> },
     { id: "opportunity", label: "Oportunidade", element: <BeforeAfterSlider /> },
-    { id: "solution", label: "Solucao", element: <EcosystemOrbit /> },
+    { id: "solution", label: "Solução", element: <EcosystemOrbit /> },
     { id: "dashboard", label: "Dashboard", element: <DashboardPreview /> },
-    { id: "demo", label: "Live Demo", element: <LiveCRM /> },
+    { id: "demo", label: "Demo ao vivo", element: <LiveCRM /> },
     { id: "roi", label: "ROI", element: <ROICalculator /> },
-    { id: "implementation", label: "Implementacao", element: <ImplementationPlan /> },
+    { id: "implementation", label: "Implementação", element: <ImplementationPlan /> },
     { id: "pricing", label: "Oferta", element: <OfferPricing /> },
     { id: "compliance", label: "Compliance", element: <ComplianceAssumptions /> },
     { id: "proof", label: "Prova", element: <ProofWall /> },
-    { id: "next", label: "Next Steps", element: <NextSteps /> },
+    { id: "next", label: "Próximos passos", element: <NextSteps /> },
   ];
 
   const scrollToIndex = useCallback((index: number) => {
@@ -57,25 +56,15 @@ export default function Home() {
   const handleScroll = useCallback(() => {
     if (!containerRef.current) return;
 
-    const currentScrollLeft = containerRef.current.scrollLeft;
-    const delta = currentScrollLeft - lastScrollLeft.current;
-    const speed = Math.min(Math.abs(delta) * 0.1, 5); // Clamp speed between 0-5
-
-    setScrollSpeed(speed);
-    lastScrollLeft.current = currentScrollLeft;
-
     // Calculate active slide
     const slideWidth = containerRef.current.offsetWidth;
-    const activeIndex = Math.round(currentScrollLeft / slideWidth);
+    const currentScrollLeft = containerRef.current.scrollLeft;
+    const activeIndex = Math.max(
+      0,
+      Math.min(slides.length - 1, Math.round(currentScrollLeft / slideWidth))
+    );
     setActiveSlide(activeIndex);
-
-    // Decay speed when not scrolling
-    const decayInterval = setInterval(() => {
-      setScrollSpeed(0);
-    }, 150);
-
-    return () => clearInterval(decayInterval);
-  }, [setScrollSpeed, setActiveSlide]);
+  }, [setActiveSlide, slides.length]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -84,6 +73,69 @@ export default function Home() {
     container.addEventListener("scroll", handleScroll, { passive: true });
     return () => container.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onWheel = (event: WheelEvent) => {
+      if (!isIntroComplete) return;
+      if (event.ctrlKey || event.metaKey) return;
+      if (document.querySelector('[role="dialog"]')) return;
+
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("[data-allow-vertical-scroll]")) return;
+
+      const delta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+          ? event.deltaX
+          : event.deltaY;
+      if (delta === 0) return;
+
+      container.scrollLeft += delta;
+      event.preventDefault();
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+    return () => container.removeEventListener("wheel", onWheel);
+  }, [isIntroComplete]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!isIntroComplete) return;
+      if (document.querySelector('[role="dialog"]')) return;
+
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.isContentEditable ||
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT"
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        scrollToIndex(activeSlide - 1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        scrollToIndex(activeSlide + 1);
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        scrollToIndex(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        scrollToIndex(slides.length - 1);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeSlide, isIntroComplete, scrollToIndex, slides.length]);
 
   return (
     <main className="h-screen w-screen bg-[#02040A] text-white relative overflow-hidden">
@@ -101,7 +153,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollToIndex(activeSlide - 1)}
-            className="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition"
+            className="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white/70 disabled:cursor-not-allowed"
             aria-label="Slide anterior"
             disabled={activeSlide === 0}
           >
@@ -118,6 +170,7 @@ export default function Home() {
                   : "bg-white/30 hover:bg-white/60"
                   }`}
                 aria-label={`Ir para ${slide.label}`}
+                aria-current={activeSlide === index ? "true" : undefined}
               />
             ))}
           </div>
@@ -127,8 +180,8 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollToIndex(activeSlide + 1)}
-            className="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition"
-            aria-label="Proximo slide"
+            className="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white/70 disabled:cursor-not-allowed"
+            aria-label="Próximo slide"
             disabled={activeSlide === slides.length - 1}
           >
             <ChevronRight size={18} />
@@ -140,7 +193,7 @@ export default function Home() {
       <div
         ref={containerRef}
         className="flex flex-row h-full w-full overflow-x-scroll overflow-y-hidden snap-x snap-mandatory relative z-10 scrollbar-hide"
-        style={{ scrollBehavior: 'smooth' }}
+        style={{ scrollBehavior: "smooth" }}
       >
         {slides.map((slide) => (
           <div key={slide.id} className="flex-shrink-0 w-screen h-full snap-center">

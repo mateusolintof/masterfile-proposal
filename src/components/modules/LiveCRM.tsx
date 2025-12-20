@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardBody, Avatar, Chip } from "@heroui/react";
 import { MoreVertical, Phone, Search, SlidersHorizontal } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import SlideShell from "@/components/ui/SlideShell";
 
 type Message = {
     id: number;
@@ -13,12 +14,12 @@ type Message = {
 };
 
 const script: Message[] = [
-    { id: 1, role: "lead", text: "Oi, gostaria de agendar consulta de avaliacao." },
-    { id: 2, role: "ai", text: "Ola! Ja registrei seu lead no CRM. Prefere manha ou tarde?" },
-    { id: 3, role: "lead", text: "Pode ser a tarde." },
-    { id: 4, role: "ai", text: "Tenho 14:30 ou 16:00. Se quiser, posso escalar para humano." },
+    { id: 1, role: "lead", text: "Oi, gostaria de agendar consulta de avaliação." },
+    { id: 2, role: "ai", text: "Olá! Já registrei seu lead no CRM. Prefere manhã ou tarde?" },
+    { id: 3, role: "lead", text: "Pode ser à tarde." },
+    { id: 4, role: "ai", text: "Tenho 14:30 ou 16:00. Se quiser, posso escalar para um humano." },
     { id: 5, role: "lead", text: "16:00 por favor." },
-    { id: 6, role: "ai", text: "Agendado! CRM atualizado e confirmacao enviada no WhatsApp." },
+    { id: 6, role: "ai", text: "Agendado! CRM atualizado e confirmação enviada no WhatsApp." },
 ];
 
 const pipelineTabs = ["Atendimento IA", "Atendimento Humano", "Follow-up"];
@@ -46,7 +47,7 @@ const overviewSeries = [
 const flowSteps = [
     "Lead entrou",
     "IA respondeu",
-    "Qualificacao",
+    "Qualificação",
     "Escalado",
     "Agendado + CRM",
 ];
@@ -84,20 +85,17 @@ export default function LiveCRM() {
     }, [step]);
 
     return (
-        <section className="h-full w-full flex flex-col items-center justify-center p-8 relative">
-            <motion.div
-                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-center mb-6"
-            >
-                <Chip variant="flat" color="warning" className="mb-4">CRM & INBOX</Chip>
-                <h2 className="text-3xl font-bold text-white mb-2">CRM em Tempo Real</h2>
-                <p className="text-white/60">Pipelines, inbox e analytics no mesmo lugar.</p>
-            </motion.div>
-
-            <div className="w-full max-w-6xl h-[620px] bg-black/30 border border-white/10 rounded-2xl p-4">
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <SlideShell
+            eyebrow="CRM & Inbox"
+            chipColor="warning"
+            title="CRM em tempo real"
+            subtitle="Pipelines, inbox e analytics no mesmo lugar."
+            size="compact"
+            align="center"
+            contentClassName="flex items-center justify-center"
+        >
+            <div className="w-full max-w-6xl h-[min(60vh,520px)] bg-black/30 border border-white/10 rounded-2xl p-4 flex flex-col">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
                         {pipelineTabs.map((tab, index) => (
                             <Chip
@@ -112,20 +110,20 @@ export default function LiveCRM() {
                     <div className="flex items-center gap-2 text-xs text-white/60">
                         <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-3 py-1">
                             <SlidersHorizontal size={12} />
-                            Periodo 7d
+                            Período: 7d
                         </div>
                         <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1">Canal: WhatsApp</div>
                         <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1">Unidade: Matriz</div>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-12 gap-4 h-[calc(100%-52px)]">
-                    <div className="col-span-5 flex flex-col gap-4 h-full">
-                        <Card className="flex-1 bg-[#0b0f16] border border-white/10">
+                <div className="grid grid-cols-12 gap-4 flex-1 min-h-0 mt-4">
+                    <div className="col-span-5 flex flex-col gap-4 h-full min-h-0">
+                        <Card className="flex-[0.95] bg-[#0b0f16] border border-white/10 min-h-0">
                             <CardBody className="p-4 h-full flex flex-col">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="text-xs uppercase tracking-widest text-white/40">Pipelines de Vendas</p>
-                                    <span className="text-xs text-white/40">Drag & drop</span>
+                                    <span className="text-xs text-white/40">Simulação</span>
                                 </div>
                                 <div className="grid grid-cols-3 gap-3 flex-1">
                                     {["Entrada IA", "Atendimento Humano", "Follow-up"].map((stage, index) => (
@@ -135,8 +133,8 @@ export default function LiveCRM() {
                                                 <span>{index === 0 ? 12 : index === 1 ? 6 : 9}</span>
                                             </div>
                                             <div className="space-y-2 opacity-40">
-                                                <div className="h-12 rounded-lg bg-white/10" />
-                                                <div className="h-12 rounded-lg bg-white/10" />
+                                                <div className="h-10 rounded-lg bg-white/10" />
+                                                <div className="h-10 rounded-lg bg-white/10" />
                                             </div>
                                             <AnimatePresence>
                                                 {column === (index === 0 ? "new" : index === 1 ? "negotiating" : "scheduled") && (
@@ -147,7 +145,7 @@ export default function LiveCRM() {
                                                         exit={{ opacity: 0, scale: 0.95 }}
                                                         className="h-16 rounded-lg border border-white/10 bg-black/40 p-3 flex items-center gap-3"
                                                     >
-                                                        <Avatar src="https://i.pravatar.cc/150?u=crm" size="sm" />
+                                                        <Avatar name="Carlos Silva" size="sm" />
                                                         <div>
                                                             <p className="text-xs font-semibold text-white">Carlos Silva</p>
                                                             <p className="text-[10px] text-white/50">
@@ -163,25 +161,25 @@ export default function LiveCRM() {
                             </CardBody>
                         </Card>
 
-                        <Card className="flex-1 bg-[#0b0f16] border border-white/10">
-                            <CardBody className="p-4 h-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="space-y-3">
-                                    <p className="text-xs uppercase tracking-widest text-white/40">Gestao de Contatos</p>
+                        <Card className="flex-[1.05] bg-[#0b0f16] border border-white/10 min-h-0">
+                            <CardBody className="p-3 h-full grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="space-y-2">
+                                    <p className="text-xs uppercase tracking-widest text-white/40">Gestão de Contatos</p>
                                     <div className="space-y-2">
                                         {contacts.map((lead) => (
-                                            <div key={lead.name} className="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg p-3">
+                                            <div key={lead.name} className="flex items-center justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
                                                 <div>
-                                                    <p className="text-sm text-white/80">{lead.name}</p>
+                                                    <p className="text-[12px] font-medium text-white/80">{lead.name}</p>
                                                     <p className="text-[10px] text-white/40">{lead.segment}</p>
                                                 </div>
-                                                <span className="text-[10px] uppercase tracking-widest text-white/60">{lead.stage}</span>
+                                                <span className="text-[9px] uppercase tracking-widest text-white/60">{lead.stage}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                                <div className="space-y-3">
-                                    <p className="text-xs uppercase tracking-widest text-white/40">Visao Geral</p>
-                                    <div className="h-[160px] w-full">
+                                <div className="space-y-2">
+                                    <p className="text-xs uppercase tracking-widest text-white/40">Visão Geral</p>
+                                    <div className="h-[110px] w-full">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <AreaChart data={overviewSeries}>
                                                 <XAxis dataKey="day" stroke="#666" fontSize={10} tickLine={false} axisLine={false} />
@@ -194,8 +192,8 @@ export default function LiveCRM() {
                                             </AreaChart>
                                         </ResponsiveContainer>
                                     </div>
-                                    <div className="text-xs text-white/50">
-                                        Atendimentos diarios e deals em andamento.
+                                    <div className="text-[11px] text-white/50">
+                                        Atendimentos diários e deals em andamento.
                                     </div>
                                 </div>
                             </CardBody>
@@ -207,7 +205,7 @@ export default function LiveCRM() {
                             <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
                                 <div>
                                     <p className="text-sm font-semibold text-white">Inbox Unificado</p>
-                                    <p className="text-xs text-white/40">Central de atendimento e historico</p>
+                                    <p className="text-xs text-white/40">Central de atendimento e histórico</p>
                                 </div>
                                 <div className="flex gap-3 text-white/40">
                                     <Phone size={18} />
@@ -236,7 +234,7 @@ export default function LiveCRM() {
                                 <div className="border-r border-white/5 p-4 space-y-3">
                                     <div className="text-[10px] uppercase tracking-widest text-white/40 flex items-center justify-between">
                                         Conversas
-                                        <span className="text-white/30">Retratil</span>
+                                        <span className="text-white/30">Resumo</span>
                                     </div>
                                     {conversations.map((item) => (
                                         <div key={item.name} className="bg-white/5 border border-white/10 rounded-lg p-3">
@@ -252,7 +250,7 @@ export default function LiveCRM() {
                                 <div className="flex flex-col">
                                     <div className="flex items-center justify-between p-4 border-b border-white/5">
                                         <div className="flex items-center gap-3">
-                                            <Avatar src="https://i.pravatar.cc/150?u=crm" />
+                                            <Avatar name="Carlos Silva" />
                                             <div>
                                                 <p className="font-semibold text-white">Carlos Silva</p>
                                                 <p className="text-xs text-white/50">Canal: WhatsApp</p>
@@ -260,7 +258,7 @@ export default function LiveCRM() {
                                         </div>
                                         <Chip size="sm" variant="flat" color="success">IA ativa</Chip>
                                     </div>
-                                    <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+                                    <div className="flex-1 p-4 space-y-3 overflow-y-auto" data-allow-vertical-scroll>
                                         {messages.map((msg) => (
                                             <motion.div
                                                 key={msg.id}
@@ -291,14 +289,14 @@ export default function LiveCRM() {
                                         )}
                                     </div>
                                     <div className="p-4 border-t border-white/5 text-xs text-white/40">
-                                        IA em execucao. Escala para humano quando ha risco clinico ou pedido de preco.
+                                        IA em execução. Escala para humano quando há risco clínico ou pedido de preço.
                                     </div>
                                 </div>
 
                                 <div className="border-l border-white/5 p-4 space-y-3">
                                     <div className="text-[10px] uppercase tracking-widest text-white/40 flex items-center justify-between">
                                         Lead Info
-                                        <span className="text-white/30">Retratil</span>
+                                        <span className="text-white/30">Resumo</span>
                                     </div>
                                     <div className="bg-white/5 border border-white/10 rounded-lg p-3 space-y-2">
                                         <p className="text-sm text-white/80">Status</p>
@@ -310,7 +308,7 @@ export default function LiveCRM() {
                                         <p className="text-sm text-white/80">Tags</p>
                                         <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-widest text-white/50">
                                             <span className="px-2 py-1 rounded-full border border-white/10">Consulta</span>
-                                            <span className="px-2 py-1 rounded-full border border-white/10">Alta Intencao</span>
+                                            <span className="px-2 py-1 rounded-full border border-white/10">Alta intenção</span>
                                             <span className="px-2 py-1 rounded-full border border-white/10">WhatsApp</span>
                                         </div>
                                     </div>
@@ -327,6 +325,6 @@ export default function LiveCRM() {
                     </Card>
                 </div>
             </div>
-        </section>
+        </SlideShell>
     );
 }

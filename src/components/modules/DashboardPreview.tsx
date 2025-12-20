@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, Chip, Tabs, Tab } from "@heroui/react";
+import { Card, CardBody, Tabs, Tab } from "@heroui/react";
 import {
     Area,
     AreaChart,
@@ -16,6 +16,7 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import SlideShell from "@/components/ui/SlideShell";
 
 const colors = {
     tech: "#00E5FF",
@@ -23,7 +24,7 @@ const colors = {
     danger: "#FF4D4D",
 };
 
-const filters = ["Periodo 30d", "Canal: WhatsApp", "Pipeline: Atendimento IA", "Unidade: Matriz"];
+const filters = ["Período: 30d", "Canal: WhatsApp", "Pipeline: Atendimento IA", "Unidade: Matriz"];
 
 const overviewTrend = [
     { week: "S1", conversao: 7.2, receita: 92 },
@@ -33,9 +34,9 @@ const overviewTrend = [
 ];
 
 const overviewKpis = [
-    { label: "SLA medio", value: "42s" },
-    { label: "Conversao", value: "+27%" },
-    { label: "Receita", value: "R$ 148k/mes" },
+    { label: "SLA médio", value: "42s" },
+    { label: "Conversão", value: "+27%" },
+    { label: "Receita", value: "R$ 148.000/mês" },
     { label: "No-show", value: "-8 p.p." },
 ];
 
@@ -57,27 +58,27 @@ const iaVolume = [
 const vendorPerformance = [
     { name: "Marina", deals: 38 },
     { name: "Caio", deals: 29 },
-    { name: "Livia", deals: 24 },
+    { name: "Lívia", deals: 24 },
     { name: "Paulo", deals: 18 },
 ];
 
 const clients = [
     { name: "Carla Souza", stage: "Qualificado", temp: "Alta", score: 86 },
-    { name: "Rafael Lima", stage: "Agendado", temp: "Media", score: 74 },
-    { name: "Julia Araujo", stage: "Follow-up", temp: "Media", score: 68 },
+    { name: "Rafael Lima", stage: "Agendado", temp: "Média", score: 74 },
+    { name: "Julia Araújo", stage: "Follow-up", temp: "Média", score: 68 },
     { name: "Denis Alves", stage: "Contato", temp: "Baixa", score: 52 },
 ];
 
 const insights = [
-    { title: "Horarios com maior conversao", detail: "Tarde (14h-17h) gera 32% mais agendas." },
+    { title: "Horários com maior conversão", detail: "Tarde (14h-17h) gera 32% mais agendas." },
     { title: "Gargalo identificado", detail: "WhatsApp sem resposta em 1h perde 18% do pipeline." },
-    { title: "Sugerido pela IA", detail: "Script com 2 etapas aumenta qualificacao em 12%." },
+    { title: "Sugerido pela IA", detail: "Script com 2 etapas aumenta qualificação em 12%." },
 ];
 
 const lossReasons = [
-    { label: "Preco", value: 42 },
-    { label: "Horario", value: 28 },
-    { label: "Concorrencia", value: 18 },
+    { label: "Preço", value: 42 },
+    { label: "Horário", value: 28 },
+    { label: "Concorrência", value: 18 },
     { label: "Sem retorno", value: 12 },
 ];
 
@@ -87,25 +88,24 @@ export default function DashboardPreview() {
     const selectedClient = clients[0];
 
     return (
-        <section className="h-full w-full flex items-center justify-center p-8">
-            <div className="max-w-6xl w-full space-y-6">
-                <Chip variant="flat" color="success">DASHBOARD</Chip>
-                <h2 className="text-4xl md:text-5xl font-bold text-white">
-                    Visao operacional com IA aplicada
-                </h2>
-                <p className="text-white/70 text-lg">
-                    KPIs, funis, performance e insights para tomada de decisao.
-                </p>
-                <div className="flex flex-wrap gap-2">
+        <SlideShell
+            eyebrow="Dashboard"
+            chipColor="success"
+            title="Visão operacional com IA aplicada"
+            subtitle="KPIs, funis, performance e insights para tomada de decisão."
+            size="compact"
+            contentClassName="flex flex-col min-h-0"
+        >
+            <div className="flex flex-wrap gap-2">
                     {filters.map((filter) => (
                         <span key={filter} className="text-xs text-white/60 bg-white/5 border border-white/10 rounded-full px-3 py-1">
                             {filter}
                         </span>
                     ))}
-                </div>
+            </div>
 
-                <Card className="bg-[#0b0f16] border border-white/10">
-                    <CardBody className="p-4">
+            <Card className="mt-4 bg-[#0b0f16] border border-white/10 h-[min(60vh,520px)] overflow-hidden">
+                <CardBody className="p-4 h-full min-h-0">
                         <Tabs
                             aria-label="Dashboard Tabs"
                             color="success"
@@ -117,14 +117,14 @@ export default function DashboardPreview() {
                                 tabContent: "group-data-[selected=true]:text-[#00FF94]",
                             }}
                         >
-                            <Tab key="overview" title="Visao Geral">
-                                <div className="grid grid-cols-12 gap-4 py-4">
+                            <Tab key="overview" title="Visão Geral">
+                                <div className="grid grid-cols-12 gap-3 py-3">
                                     <Card className="col-span-8 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
-                                                Receita e conversao
+                                                Receita e conversão
                                             </p>
-                                            <div className="h-[220px] w-full">
+                                            <div className="h-[clamp(140px,20vh,200px)] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <LineChart data={overviewTrend}>
                                                         <XAxis dataKey="week" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
@@ -141,7 +141,7 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-4 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4 grid grid-cols-2 gap-3">
+                                        <CardBody className="p-3 grid grid-cols-2 gap-3">
                                             {overviewKpis.map((kpi) => (
                                                 <div key={kpi.label} className="bg-black/30 border border-white/10 rounded-lg p-3">
                                                     <p className="text-xs uppercase tracking-widest text-white/40">{kpi.label}</p>
@@ -151,11 +151,11 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-12 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                                                 Funil de vendas
                                             </p>
-                                            <div className="h-[180px] w-full">
+                                            <div className="h-[clamp(110px,15vh,160px)] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <BarChart data={funnelData} layout="vertical" margin={{ left: 20 }}>
                                                         <XAxis type="number" hide />
@@ -173,14 +173,14 @@ export default function DashboardPreview() {
                                 </div>
                             </Tab>
 
-                            <Tab key="ai" title="Gestao IA">
-                                <div className="grid grid-cols-12 gap-4 py-4">
+                            <Tab key="ai" title="Gestão IA">
+                                <div className="grid grid-cols-12 gap-3 py-3">
                                     <Card className="col-span-7 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                                                 Volume de atendimento IA
                                             </p>
-                                            <div className="h-[220px] w-full">
+                                            <div className="h-[clamp(140px,20vh,200px)] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <AreaChart data={iaVolume}>
                                                         <XAxis dataKey="day" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
@@ -197,7 +197,7 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-5 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4 space-y-4">
+                                        <CardBody className="p-3 space-y-4">
                                             <div className="grid grid-cols-2 gap-3">
                                                 <div className="bg-black/30 border border-white/10 rounded-lg p-3">
                                                     <p className="text-xs uppercase tracking-widest text-white/40">Qualificados</p>
@@ -208,7 +208,7 @@ export default function DashboardPreview() {
                                                     <p className="text-white/80 text-lg mt-2">128</p>
                                                 </div>
                                                 <div className="bg-black/30 border border-white/10 rounded-lg p-3">
-                                                    <p className="text-xs uppercase tracking-widest text-white/40">SLA medio</p>
+                                                    <p className="text-xs uppercase tracking-widest text-white/40">SLA médio</p>
                                                     <p className="text-white/80 text-lg mt-2">38s</p>
                                                 </div>
                                                 <div className="bg-black/30 border border-white/10 rounded-lg p-3">
@@ -217,7 +217,7 @@ export default function DashboardPreview() {
                                                 </div>
                                             </div>
                                             <div className="text-xs text-white/50">
-                                                Escalonamento automatico baseado em risco e intencao.
+                                                Escalonamento automático baseado em risco e intenção.
                                             </div>
                                         </CardBody>
                                     </Card>
@@ -225,13 +225,13 @@ export default function DashboardPreview() {
                             </Tab>
 
                             <Tab key="sales" title="Atendimento Vendedores">
-                                <div className="grid grid-cols-12 gap-4 py-4">
+                                <div className="grid grid-cols-12 gap-3 py-3">
                                     <Card className="col-span-7 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                                                 Deals fechados por vendedor
                                             </p>
-                                            <div className="h-[220px] w-full">
+                                            <div className="h-[clamp(140px,20vh,200px)] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <BarChart data={vendorPerformance}>
                                                         <XAxis dataKey="name" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
@@ -247,13 +247,13 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-5 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4 grid grid-cols-2 gap-3">
+                                        <CardBody className="p-3 grid grid-cols-2 gap-3">
                                             <div className="bg-black/30 border border-white/10 rounded-lg p-3">
-                                                <p className="text-xs uppercase tracking-widest text-white/40">Score medio</p>
+                                                <p className="text-xs uppercase tracking-widest text-white/40">Score médio</p>
                                                 <p className="text-white/80 text-lg mt-2">8.7</p>
                                             </div>
                                             <div className="bg-black/30 border border-white/10 rounded-lg p-3">
-                                                <p className="text-xs uppercase tracking-widest text-white/40">Tempo medio</p>
+                                                <p className="text-xs uppercase tracking-widest text-white/40">Tempo médio</p>
                                                 <p className="text-white/80 text-lg mt-2">9m</p>
                                             </div>
                                             <div className="bg-black/30 border border-white/10 rounded-lg p-3">
@@ -270,9 +270,9 @@ export default function DashboardPreview() {
                             </Tab>
 
                             <Tab key="clients" title="Clientes">
-                                <div className="grid grid-cols-12 gap-4 py-4">
+                                <div className="grid grid-cols-12 gap-3 py-3">
                                     <Card className="col-span-6 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                                                 Base qualificada
                                             </p>
@@ -296,8 +296,8 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-6 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4 space-y-4">
-                                            <p className="text-xs uppercase tracking-widest text-white/40">Analise IA</p>
+                                        <CardBody className="p-3 space-y-4">
+                                            <p className="text-xs uppercase tracking-widest text-white/40">Análise IA</p>
                                             <div>
                                                 <p className="text-lg text-white/80">{selectedClient.name}</p>
                                                 <p className="text-xs text-white/50">Temperatura: {selectedClient.temp}</p>
@@ -310,20 +310,20 @@ export default function DashboardPreview() {
                                                 </div>
                                             </div>
                                             <div className="text-xs text-white/50">
-                                                IA detectou alta intencao e risco baixo de no-show.
+                                                IA detectou alta intenção e risco baixo de no-show.
                                             </div>
                                         </CardBody>
                                     </Card>
                                 </div>
                             </Tab>
 
-                            <Tab key="insights" title="Insights + Reports">
-                                <div className="grid grid-cols-12 gap-4 py-4">
+                            <Tab key="insights" title="Insights + Relatórios">
+                                <div className="grid grid-cols-12 gap-3 py-3">
                                     <Card className="col-span-7 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4 space-y-3">
+                                        <CardBody className="p-3 space-y-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40">Insights gerados por IA</p>
                                             {insights.map((insight) => (
-                                                <div key={insight.title} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                                                <div key={insight.title} className="bg-white/5 border border-white/10 rounded-lg p-3">
                                                     <p className="text-white/80 text-sm font-semibold">{insight.title}</p>
                                                     <p className="text-white/60 text-xs mt-2">{insight.detail}</p>
                                                 </div>
@@ -331,11 +331,11 @@ export default function DashboardPreview() {
                                         </CardBody>
                                     </Card>
                                     <Card className="col-span-5 bg-white/5 border border-white/10">
-                                        <CardBody className="p-4">
+                                        <CardBody className="p-3">
                                             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">
                                                 Motivos de perda
                                             </p>
-                                            <div className="h-[220px] w-full">
+                                            <div className="h-[clamp(140px,20vh,200px)] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <PieChart>
                                                         <Pie data={lossReasons} dataKey="value" innerRadius={50} outerRadius={80}>
@@ -354,9 +354,8 @@ export default function DashboardPreview() {
                                 </div>
                             </Tab>
                         </Tabs>
-                    </CardBody>
-                </Card>
-            </div>
-        </section>
+                </CardBody>
+            </Card>
+        </SlideShell>
     );
 }

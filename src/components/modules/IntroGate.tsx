@@ -7,12 +7,12 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const objectives = [
     "Atendimento imediato (< 1min)",
-    "Qualificacao automatica de convenios",
-    "Reducao da taxa de No-Show",
+    "Qualificação automática de convênios",
+    "Redução da taxa de No-Show",
 ];
 
 const execSummary = [
-    { label: "Escopo", value: "Agentes IA + CRM + Integracoes" },
+    { label: "Escopo", value: "Agentes IA + CRM + Integrações" },
     { label: "ROI estimado", value: "3-5x em 90 dias" },
     { label: "Timeline", value: "Go-Live em 3 semanas" },
 ];
@@ -42,37 +42,30 @@ export default function IntroGate() {
                             className="space-y-6"
                         >
                             {/* Badge */}
-                            <div
-                                className="inline-block px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase"
-                                style={{
-                                    border: "1px solid rgba(0, 229, 255, 0.5)",
-                                    background: "rgba(0, 229, 255, 0.08)",
-                                    color: "#00E5FF",
-                                }}
-                            >
-                                Plano de Expansao Comercial
+                            <div className="inline-block px-4 py-2 rounded-full text-xs font-semibold tracking-[0.2em] uppercase border border-[#00E5FF]/40 bg-[#00E5FF]/10 text-[#00E5FF]">
+                                Plano de Expansão Comercial
                             </div>
 
                             {/* Title */}
                             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                                Agentes Inteligentes & Gestao Unificada
+                                Agentes Inteligentes & Gestão Unificada
                             </h1>
 
                             {/* Description */}
                             <p className="text-white/70 text-lg leading-relaxed">
-                                Transforme 35.000 interacoes mensais em resultados.
-                                Uma solucao integrada que combina IA conversacional
-                                com gestao de relacionamento para maximizar conversoes.
+                                Transforme 35.000 interações mensais em resultados.
+                                Uma solução integrada que combina IA conversacional
+                                com gestão de relacionamento para maximizar conversões.
                             </p>
 
                             {/* Divider + Meta */}
                             <div className="pt-4 border-t border-white/10">
                                 <div className="flex flex-wrap gap-6 text-sm text-white/40">
                                     <span>
-                                        <span className="font-medium text-white/60">CLIENTE:</span> CM Remedios
+                                        <span className="font-medium text-white/60">CLIENTE:</span> CM Remédios
                                     </span>
                                     <span>
-                                        <span className="font-medium text-white/60">VALIDADE:</span> Outubro 2025
+                                        <span className="font-medium text-white/60">VALIDADE:</span> 30 dias
                                     </span>
                                 </div>
                             </div>
@@ -85,11 +78,7 @@ export default function IntroGate() {
                             transition={{ delay: 0.4, duration: 0.6 }}
                         >
                             <Card
-                                className="border border-white/10"
-                                style={{
-                                    background: "rgba(6, 14, 20, 0.7)",
-                                    backdropFilter: "blur(18px)",
-                                }}
+                                className="border border-white/10 bg-[#060e14]/70 backdrop-blur-xl"
                             >
                                 <CardBody className="p-8 space-y-6">
                                     <h3 className="text-xl font-semibold text-white">
@@ -126,14 +115,13 @@ export default function IntroGate() {
                                         <Button
                                             size="lg"
                                             onPress={completeIntro}
-                                            className="w-full font-semibold tracking-wide h-14 text-lg border border-[#00E5FF]/40 bg-[#0a1b24] text-[#E6FBFF] hover:bg-[#0f2532]"
-                                            style={{ boxShadow: "0 0 24px rgba(0, 229, 255, 0.25)" }}
+                                            className="w-full font-semibold tracking-wide h-14 text-lg border border-[#00E5FF]/40 bg-[#0a1b24] text-[#E6FBFF] hover:bg-[#0f2532] shadow-[0_0_24px_rgba(0,229,255,0.25)]"
                                             endContent={<ArrowRight size={20} />}
                                         >
-                                            INICIAR EXPERIENCIA
+                                            INICIAR EXPERIÊNCIA
                                         </Button>
                                         <p className="text-xs text-white/40 text-center mt-3">
-                                            Dica: use o scroll horizontal, arraste ou setas para navegar.
+                                            Dica: use o scroll horizontal, arraste ou use as setas ←/→.
                                         </p>
                                     </motion.div>
                                 </CardBody>
@@ -141,7 +129,7 @@ export default function IntroGate() {
 
                             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/60">
                                 {execSummary.map((item) => (
-                                    <div key={item.label} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                                    <div key={item.label} className="bg-white/5 border border-white/10 rounded-xl p-4">
                                         <p className="uppercase tracking-widest text-white/40">{item.label}</p>
                                         <p className="text-white/80 mt-2">{item.value}</p>
                                     </div>
