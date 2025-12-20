@@ -33,6 +33,7 @@ CLIENTE: CM REMEDIOS
     "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.57.0",
     "typescript": "5.9.3",
     "tailwindcss": "4.1.18",
     "@tailwindcss/postcss": "4.1.18",
@@ -114,6 +115,7 @@ src/
 - [x] CRM e Dashboard alinhados ao produto
 - [x] Fluxos dos agentes com @xyflow/react
 - [x] ROI com formulas, payback e estado global
+- [x] QA visual desktop (Playwright: `npm run test:ui`)
 - [ ] Inserir assets finais (videos/imagens)
 - [ ] Revisao final de copy e metricas
 - [ ] QA visual final (desktop/tablet/mobile)
