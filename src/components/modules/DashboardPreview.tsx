@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardBody, Tabs, Tab } from "@heroui/react";
 import {
     Area,
@@ -85,7 +86,7 @@ const lossReasons = [
 const lossColors = [colors.danger, colors.tech, colors.success, "#5a5a5a"];
 
 export default function DashboardPreview() {
-    const selectedClient = clients[0];
+    const [selectedClient, setSelectedClient] = useState(clients[0]);
 
     return (
         <SlideShell
@@ -278,11 +279,14 @@ export default function DashboardPreview() {
                                             </p>
                                             <div className="space-y-2">
                                                 {clients.map((client) => (
-                                                    <div
+                                                    <button
                                                         key={client.name}
-                                                        className={`flex items-center justify-between rounded-lg p-3 border ${client.name === selectedClient.name
+                                                        type="button"
+                                                        onClick={() => setSelectedClient(client)}
+                                                        aria-pressed={client.name === selectedClient.name}
+                                                        className={`w-full text-left flex items-center justify-between rounded-lg p-3 border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF94]/50 ${client.name === selectedClient.name
                                                             ? "border-[#00FF94]/60 bg-[#00FF94]/10"
-                                                            : "border-white/10 bg-white/5"
+                                                            : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
                                                             }`}
                                                     >
                                                         <div>
@@ -290,7 +294,7 @@ export default function DashboardPreview() {
                                                             <p className="text-[10px] text-white/40">{client.stage}</p>
                                                         </div>
                                                         <span className="text-[10px] uppercase tracking-widest text-white/60">{client.temp}</span>
-                                                    </div>
+                                                    </button>
                                                 ))}
                                             </div>
                                         </CardBody>
