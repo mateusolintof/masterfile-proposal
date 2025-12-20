@@ -2,7 +2,7 @@
 
 ## Stack Tech do Projeto
 
--  Build: Next.js 16.0.4
+-  Build: Next.js 16.1.0
 -  Framework: React 19.2.3
 -  Language: Typescript 5.9.3
 -  Estilização: HeroUI React v2.8.6 + HeroUI Theme v2.4.24 (Downgraded due to v3 instability)
@@ -10,6 +10,7 @@
 -  Graficos: Recharts 2.15.x
 -  Flowcharts: @xyflow/react 12.10.0
 -  3D: @react-three/fiber ^9 + @react-three/drei ^10 + @react-three/postprocessing ^3
+-  QA: Playwright 1.57.0
 
 
 ## Condutas  

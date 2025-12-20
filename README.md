@@ -3,17 +3,17 @@
 Interactive horizontal proposal for CM Remedios. The IntroGate works as the hero entry, then the narrative advances through 11 slides focused on problem, solution, proof, ROI, and next steps.
 
 ## Stack (exact versions)
-- Next.js 16.0.4
+- Next.js 16.1.0
 - React 19.2.3
 - TypeScript 5.9.3
 - HeroUI React 2.8.6 + HeroUI Theme 2.4.24
 - Tailwind CSS 4.1.18
 - Framer Motion 12.x
-- GSAP 3.13.x
 - R3F + Drei + @react-three/postprocessing
 - Recharts 2.15.x
 - @xyflow/react 12.10.0
 - Zustand 5.x
+- Playwright 1.57.0 (QA)
 
 ## Getting Started
 ```bash
@@ -27,6 +27,8 @@ Open http://localhost:3000
 - `npm run build` - production build
 - `npm run start` - start production server
 - `npm run lint` - eslint
+- `npm run test:ui:install` - install Playwright Chromium for visual QA
+- `npm run test:ui` - run slide audit and screenshots
 
 ## Narrative Flow (11 slides)
 1. Diagnostico - `PainPointsGrid`
@@ -52,3 +54,4 @@ Open http://localhost:3000
 ## Notes
 - Numbers and pricing are fictitious placeholders.
 - The 3D background is intentionally softened to keep focus on content.
+- `artifacts/` stores local QA outputs (screenshots) and is ignored by Git.
