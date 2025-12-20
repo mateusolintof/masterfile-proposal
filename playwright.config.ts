@@ -10,7 +10,7 @@ export default defineConfig({
   use: {
     baseURL,
     viewport: { width: 1440, height: 755 },
-    reducedMotion: "reduce",
+    contextOptions: { reducedMotion: "reduce" },
   },
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
@@ -21,4 +21,3 @@ export default defineConfig({
         timeout: 120_000,
       },
 });
-

@@ -66,6 +66,12 @@ test.describe("Proposal slide audit", () => {
         await expect(page.getByText("Temperatura: Média")).toBeVisible();
       }
 
+      if (slide.id === "roi") {
+        await expect(
+          page.getByRole("heading", { name: /matemática do lucro/i })
+        ).toBeVisible();
+      }
+
       if (slide.id === "next") {
         await page.getByRole("button", { name: /iniciar projeto/i }).click();
         await expect(page.getByRole("dialog")).toBeVisible();

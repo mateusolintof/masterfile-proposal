@@ -8,7 +8,6 @@ import PainPointsGrid from "@/components/modules/PainPointsGrid";
 import EcosystemOrbit from "@/components/modules/EcosystemOrbit";
 import DashboardPreview from "@/components/modules/DashboardPreview";
 import BeforeAfterSlider from "@/components/modules/BeforeAfterSlider";
-import ROICalculator from "@/components/modules/ROICalculator";
 import LiveCRM from "@/components/modules/LiveCRM";
 import ImplementationPlan from "@/components/modules/ImplementationPlan";
 import OfferPricing from "@/components/modules/OfferPricing";
@@ -20,6 +19,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Dynamically import Scene with no SSR
 const Scene = dynamic(() => import("@/components/3d/Scene"), { ssr: false });
+
+// Avoid SSR for ROICalculator due to hydration mismatch in some environments.
+const ROICalculator = dynamic(() => import("@/components/modules/ROICalculator"), {
+  ssr: false,
+});
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
