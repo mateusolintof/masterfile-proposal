@@ -148,75 +148,81 @@ export default function EcosystemOrbit() {
         setEdges(flow.edges);
     }, [selectedAgent, setNodes, setEdges]);
 
-	    return (
-	        <SlideShell
-	            eyebrow="Solução"
-	            chipColor="warning"
-	            title="A nova ordem"
-	            subtitle="Seu time de elite trabalhando 24/7."
-	            align="center"
-	            size="compact"
-	            className="relative overflow-hidden"
-	            background={
-	                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black pointer-events-none" />
-	            }
-	        >
-	            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 w-full items-center">
-	                {/* Orbit Container */}
-	                <div className="relative w-[min(420px,48vh)] h-[min(420px,48vh)] flex items-center justify-center z-10 mx-auto">
-	                    {/* Center Core */}
-	                    <div className="absolute w-24 h-24 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(0,229,255,0.2)]">
-	                        <BrainCircuit className="w-10 h-10 animate-pulse" style={{ color: "var(--color-accent-tech)" }} />
-	                    </div>
+    return (
+        <SlideShell
+            eyebrow="Solução"
+            chipColor="warning"
+            title="A nova ordem"
+            subtitle="Seu time de elite trabalhando 24/7."
+            align="center"
+            size="compact"
+            className="relative overflow-hidden"
+            background={
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black pointer-events-none" />
+            }
+        >
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 w-full items-center">
+                {/* Orbit Container */}
+                <div className="relative w-[min(420px,48vh)] h-[min(420px,48vh)] flex items-center justify-center z-10 mx-auto">
+                    {/* Center Core */}
+                    <div className="absolute w-24 h-24 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(0,229,255,0.2)]">
+                        <BrainCircuit className="w-10 h-10 animate-pulse" style={{ color: "var(--color-accent-tech)" }} />
+                    </div>
 
                     {/* Orbit Rings */}
-                    <div className="absolute inset-0 border border-white/5 rounded-full animate-[spin_20s_linear_infinite]" />
-                    <div className="absolute inset-16 border border-dashed border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+                    <div className="absolute inset-0 border border-white/5 rounded-full motion-reduce:animate-none animate-[spin_20s_linear_infinite]" />
+                    <div className="absolute inset-16 border border-dashed border-white/10 rounded-full motion-reduce:animate-none animate-[spin_15s_linear_infinite_reverse]" />
 
-	                    {/* Agents */}
-	                    {agents.map((agent, index) => {
-	                        const angle = AGENT_ANGLES[index] ?? 0;
+                    {/* Agents (orbiting) */}
+                    <div className="absolute inset-0 motion-reduce:animate-none animate-[spin_24s_linear_infinite]">
+                        {agents.map((agent, index) => {
+                            const angle = AGENT_ANGLES[index] ?? 0;
 
-	                        return (
-	                            <div
-	                                key={agent.id}
-	                                className="absolute top-1/2 left-1/2"
-	                                style={{
-	                                    transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${ORBIT_RADIUS}) rotate(-${angle}deg)`,
-	                                }}
-	                            >
-	                                <motion.button
-	                                    type="button"
-	                                    className="w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-[#00E5FF] transition-all flex items-center justify-center backdrop-blur-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF]/60"
-	                                    initial={{ opacity: 0, scale: 0 }}
-	                                    whileInView={{ opacity: 1, scale: 1 }}
-	                                    whileHover={{ scale: 1.1 }}
-	                                    whileTap={{ scale: 0.98 }}
-	                                    viewport={{ once: true, amount: 0.4 }}
-	                                    transition={{ delay: 0.2 + index * 0.1 }}
-	                                    onClick={() => handleAgentClick(agent)}
-	                                >
-	                                    <div className="text-white/80 group-hover:text-[#00E5FF] transition-colors">
-	                                        {agent.icon}
-	                                    </div>
-	                                    <span className="absolute -bottom-8 text-xs font-medium text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-	                                        {agent.name}
-	                                    </span>
-	                                </motion.button>
-	                            </div>
-	                        );
-	                    })}
-	                </div>
+                            return (
+                                <div
+                                    key={agent.id}
+                                    className="absolute top-1/2 left-1/2"
+                                    style={{
+                                        transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(${ORBIT_RADIUS})`,
+                                    }}
+                                >
+                                    <div style={{ transform: `rotate(-${angle}deg)` }}>
+                                        <div className="motion-reduce:animate-none animate-[spin_24s_linear_infinite_reverse]">
+                                            <motion.button
+                                                type="button"
+                                                className="relative w-16 h-16 rounded-full bg-black/60 border border-white/20 hover:border-[#00E5FF] transition-all flex items-center justify-center backdrop-blur-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF]/60"
+                                                initial={{ opacity: 0, scale: 0 }}
+                                                whileInView={{ opacity: 1, scale: 1 }}
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.98 }}
+                                                viewport={{ once: true, amount: 0.4 }}
+                                                transition={{ delay: 0.2 + index * 0.1 }}
+                                                onClick={() => handleAgentClick(agent)}
+                                            >
+                                                <div className="text-white/80 group-hover:text-[#00E5FF] transition-colors">
+                                                    {agent.icon}
+                                                </div>
+                                                <span className="absolute -bottom-8 text-xs font-medium text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    {agent.name}
+                                                </span>
+                                            </motion.button>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
 
-	                <div className="space-y-4 text-left w-full">
-	                    {workflowNotes.map((note) => (
-	                        <div key={note.title} className="bg-white/5 border border-white/10 rounded-xl p-5">
-	                            <p className="text-xs uppercase tracking-widest text-white/40">{note.title}</p>
-	                            <p className="text-white/70 mt-2 text-sm leading-relaxed">{note.desc}</p>
-	                        </div>
-	                    ))}
-	                </div>
-	            </div>
+                <div className="space-y-4 text-left w-full">
+                    {workflowNotes.map((note) => (
+                        <div key={note.title} className="bg-white/5 border border-white/10 rounded-xl p-5">
+                            <p className="text-xs uppercase tracking-widest text-white/40">{note.title}</p>
+                            <p className="text-white/70 mt-2 text-sm leading-relaxed">{note.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             {/* Modal Detail */}
             <Modal

@@ -34,12 +34,13 @@ export default function SlideShell({
     <section
       className={cn(
         "h-full w-full pt-[clamp(72px,8vh,96px)] pb-[clamp(36px,6vh,56px)] px-6 md:px-8 flex flex-col",
-        align === "center" ? "items-center text-center" : "items-start",
+        "items-center",
+        align === "center" ? "text-center" : "text-left",
         className
       )}
     >
       {background}
-      <div className="w-full max-w-6xl flex flex-col min-h-0">
+      <div className="w-full max-w-6xl mx-auto flex flex-col min-h-0">
         <motion.div
           initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}

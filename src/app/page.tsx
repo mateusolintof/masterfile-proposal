@@ -146,10 +146,10 @@ export default function Home() {
       <IntroGate />
 
       {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-25 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
         <Scene />
       </div>
-      <div className="absolute inset-0 z-[1] bg-[#02040A]/40 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-[#02040A]/32 pointer-events-none" />
 
       {/* Navigation */}
       <div className="fixed top-6 left-0 right-0 z-40 flex items-center justify-center pointer-events-none">
